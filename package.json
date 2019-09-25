@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next src -p 8080",
-    "build": "next build src",
+    "dev": "next -p 8080",
+    "build": "next build",
     "start": "next start"
   },
   "dependencies": {

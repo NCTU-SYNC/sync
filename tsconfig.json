@@ -18,7 +18,7 @@
     "isolatedModules": true,
     "sourceMap": true,
     "jsx": "preserve",
-    "baseUrl": "./",
+    "baseUrl": "src",
     "paths": {
       "~/*": [
         "*"
