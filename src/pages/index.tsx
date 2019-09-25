@@ -1,17 +1,20 @@
 import { NextPage } from 'next';
+import { useEffect, useRef, RefObject } from 'react';
 import styled from 'styled-components';
 import cx from 'classnames';
-import { useEffect } from 'react';
+
 import Button from '~/modules/common/component/Button';
 import Variant from '~/constants/variant';
 
 const Carousel = styled.div.attrs({
-  className: cx('carousel', 'carousel-slider')
-})``;
+  className: cx('carousel', 'carousel-slider', 'center')
+})`
+  max-height: 35vh;
+`;
 
-const CarouselItem = styled.a.attrs({
-  className: 'carousel-item'
-})``;
+const CarouselItem = styled.a.attrs(props => ({
+  className: cx('carousel-item', props.color, 'darken-3')
+}))``;
 
 const Nav = styled.nav.attrs({
   className: 'nav-wrapper'
@@ -48,15 +51,22 @@ const Footer = styled.footer.attrs({
 `;
 
 const LandingPage: NextPage<unknown> = () => {
-
+  const ref = useRef<HTMLDivElement>();
+  useEffect(() => {
+    const options = {
+      fullWidth: true,
+      indicators: true
+    };
+    if(window){
+      const M = require('materialize-css');
+      M.Carousel.init((ref.current as Element), options);
+    }
+  }, [])
+  const rainbow = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
   return (
     <>
-      <Carousel>
-        <CarouselItem><div/></CarouselItem>
-        <CarouselItem><div/></CarouselItem>
-        <CarouselItem><div/></CarouselItem>
-        <CarouselItem><div/></CarouselItem>
-        <CarouselItem><div/></CarouselItem>
+      <Carousel ref={ref as RefObject<HTMLDivElement>}>
+        {rainbow.map((color, index) => <CarouselItem key={index} color={color}/>)}
       </Carousel>
       <Nav>
         <Logo href="">Sync</Logo>
@@ -67,7 +77,7 @@ const LandingPage: NextPage<unknown> = () => {
           <Button variant={Variant.SECONDARY}>Button</Button>
         </NavWrapper>
       </Nav>
-      {['red', 'orange', 'yellow', 'green', 'blue', 'purple'].map((color, index) => <Section key={index} color={color}/>)}
+      {rainbow.map((color, index) => <Section key={index} color={color}/>)}
       <Footer>
         &copy; 2019 Copyright Sync.
       </Footer>
