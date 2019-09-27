@@ -6,4 +6,4 @@ export enum ThemeNames{
 
 export default {
   defaultTheme,
-}
+};

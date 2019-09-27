@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider as BaseThemeProvider } from 'styled-components';
 
 import themes, { ThemeNames } from '~/constants/themes';
 import GlobalStyle from '~/constants/GlobalStyle';
@@ -9,7 +9,7 @@ interface IProps {
   theme?: ThemeNames;
 }
 
-export default ({ children, theme = ThemeNames.DEFAULT }: IProps) => {
+const ThemeProvider = ({ children, theme = ThemeNames.DEFAULT }: IProps) => {
   const { common, desktop, mobile } = themes[theme];
   const selectedTheme = {
     color: {
@@ -17,14 +17,16 @@ export default ({ children, theme = ThemeNames.DEFAULT }: IProps) => {
       ...desktop,
       ...mobile,
     }
-  }
+  };
 
   return (
-    <ThemeProvider theme={selectedTheme}>
+    <BaseThemeProvider theme={selectedTheme}>
       <>
         <GlobalStyle/>
         {children}
       </>
-    </ThemeProvider>
+    </BaseThemeProvider>
   );
-}
+};
+
+export default ThemeProvider;

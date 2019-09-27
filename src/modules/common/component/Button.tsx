@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 import { noop } from 'lodash';
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Variant from "~/constants/variant";
+import Variant from '~/constants/variant';
 
 interface IProps {
   variant?: Variant;
@@ -18,6 +18,6 @@ const Button = ({ children, variant, onClick = noop }: IProps) => (
   <Main onClick={onClick} variant={variant}>
     {children}
   </Main>
-)
+);
 
 export default Button;
