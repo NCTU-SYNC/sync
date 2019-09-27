@@ -813,35 +813,15 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.4.tgz#a87b4b04e5ae14a88d48ebef15015f6b7d1f5677"
   integrity sha512-kBa+cDHOR9jpRJ+kcGMsysrls0leukrm68DmFQoMIWQcXdr2cZvyvypWuGYT7U+9kAExUE7+T7r6G3C3A6L8MQ==
 
-"@types/cash@*":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@types/cash/-/cash-0.0.3.tgz#770d6382c605bb4f8572f17cea6f40cec5832496"
-  integrity sha512-gS24kdFuVwfo5h7IlStnXyBSIH4e9aFIhNHb4w+o5DwbYDeQJv+i9heh7u7nSvqnOP3v34tQMTe7VoJp2US08w==
-
 "@types/classnames@^2.2.9":
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.9.tgz#d868b6febb02666330410fe7f58f3c4b8258be7b"
   integrity sha512-MNl+rT5UmZeilaPxAVs6YaPC2m6aA8rofviZbhbxpPpl61uKodfdQVsBtgJGTqGizEf02oW3tsVe7FYB8kK14A==
 
-"@types/jquery@*":
-  version "3.3.31"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.31.tgz#27c706e4bf488474e1cb54a71d8303f37c93451b"
-  integrity sha512-Lz4BAJihoFw5nRzKvg4nawXPzutkv7wmfQ5121avptaSIXlDNJCUuxZxX/G+9EVidZGuO0UBlk+YjKbwRKJigg==
-  dependencies:
-    "@types/sizzle" "*"
-
 "@types/lodash@^4.14.139":
   version "4.14.139"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.139.tgz#b7b8a00d014a7debb29dc2dae4f91d3d3c6d5ab3"
   integrity sha512-Z6pbDYaWpluqcF8+6qgv6STPEl0jIlyQmpYGwTrzhgwqok8ltBh/p7GAmYnz81wUhxQRhEr8MBpQrB4fQ/hwIA==
-
-"@types/materialize-css@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@types/materialize-css/-/materialize-css-1.0.6.tgz#94ba0261b4d581f444dd5d543d5d73926ba3c5c7"
-  integrity sha512-H/QXdgih11880Rx+yhLU5mDCm3SVGF7CYyQjEmRYGrn/fGrPc+s2SQBwbB9gZCw2a/39bDkH/v+wyysj0nWXCQ==
-  dependencies:
-    "@types/cash" "*"
-    "@types/jquery" "*"
 
 "@types/node@^12.7.7":
   version "12.7.7"
@@ -875,11 +855,6 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
-
-"@types/sizzle@*":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
-  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 "@types/styled-components@^4.1.19":
   version "4.1.19"
@@ -3008,11 +2983,6 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
-
-materialize-css@^1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-1.0.0-rc.2.tgz#b9e6b18f698c6ef77bb6b628d59147faf131eff5"
-  integrity sha512-FuQmSyq4Qv0ov7A2qXw0E6/jbQzSWx2P1pg2/XQDYTkkSc/GyiFAxu3fw9zgShwuTvyumEiw5jkxQWT9siqMBQ==
 
 md5.js@^1.3.4:
   version "1.3.5"
