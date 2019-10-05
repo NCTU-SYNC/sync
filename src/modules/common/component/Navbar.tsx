@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from './Link';
+import Icon from './Icon';
 
 const Main = styled.div`
   position: sticky;
@@ -9,16 +10,17 @@ const Main = styled.div`
   align-items: center;
   width: 100%;
   height: ${props => props.theme.HEADER_HEIGHT}px;
-  padding: 20px 20px 30px;
+  padding: 30px 20px 35px;
   background-color: ${props => props.theme.justWhite};
 
   &::after {
     content: '';
     position: absolute;
+    display: inline-block;
     bottom: 1px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
+    width: calc(100% - 80px);
     height: 1px;
     background-color: ${props => props.theme.textLight};
   }
@@ -48,6 +50,7 @@ const Navbar = () => {
         <Logo>SYNC</Logo>
       </Link>
       <LinksWrapper>
+        <StyledLink to='/notification'><Icon size={18} type='bell'/></StyledLink>
         <StyledLink to='/user'>個人帳戶</StyledLink>
         <StyledLink to='/login'>登入</StyledLink>
       </LinksWrapper>

@@ -52,6 +52,7 @@
     "stylelint-order": "^3.1.1",
     "stylelint-processor-styled-components": "^1.8.0",
     "stylelint-scss": "^3.11.1",
+    "svg-inline-loader": "^0.8.0",
     "ts-optchain": "^0.1.8",
     "typescript": "^3.6.3",
     "typescript-eslint": "^0.0.1-alpha.0"

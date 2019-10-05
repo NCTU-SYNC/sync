@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import Variant from '~/constants/variant';
 
 interface IProps {
+  className?: string;
   size?: number;
+  outline?: boolean;
   rounded?: boolean;
   variant?: Variant;
   children: ReactNode;
@@ -13,20 +15,25 @@ interface IProps {
 }
 
 const Main = styled.button<IProps>`
+  cursor: pointer;
   position: relative;
   overflow: hidden;
   outline: none;
   border: none;
-  border-radius: ${props => props.rounded ? '50%' : '4px'};
-  height: ${props => props.size};
-  line-height: ${props => props.size};
-  padding: 0 10px;
-  color: ${props => props.theme.color.justWhite};
-  background-color: ${props => props.theme.color[props.variant || Variant.PRIMARY]} !important;
+  height: ${props => props.size}px;
+  line-height: ${props => props.size}px;
+  padding: 0 30px;
+  color: ${props => props.theme.justWhite};
+  background-color: ${props => props.theme[props.variant || Variant.PRIMARY]};
+  ${props => props.outline && `
+    border: 1px solid ${props.theme[props.variant || Variant.PRIMARY]};
+    color: ${props.theme[props.variant || Variant.PRIMARY]};
+    background-color: ${props.theme.justWhite};
+  `}
 `;
 
-const Button = ({ children, size, rounded, variant, onClick = noop }: IProps) => (
-  <Main onClick={onClick} variant={variant} rounded={rounded} size={size}>
+const Button = ({ children, onClick = noop, ...props }: IProps) => (
+  <Main onClick={onClick} {...props}>
     {children}
   </Main>
 );
