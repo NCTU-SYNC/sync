@@ -3,6 +3,12 @@ import styled from 'styled-components';
 
 interface IProps {
   className?: string;
+  placeholder?: string;
+  value?: string;
+}
+
+interface IGroupProps {
+  className?: string;
   left?: React.ReactNode;
   right?: React.ReactNode;
   placeholder?: string;
@@ -15,6 +21,12 @@ const Main = styled.div`
 `;
 
 const StyledInput = styled.input`
+  margin: 0;
+  border: none;
+  outline: none;
+`;
+
+const InputInGroup = styled.input`
   flex: 1;
   margin: 0;
   border: none;
@@ -28,15 +40,16 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ className, left, right, ...props }: IProps) => {
+export const Input = (props: IProps) => (
+  <StyledInput {...props}/>
+);
+
+export const InputGroup = ({ className, left, right, ...props }: IGroupProps) => {
   return (
     <Main className={className}>
       {left}
-      <StyledInput {...props}/>
+      <InputInGroup {...props}/>
       {right}
     </Main>
   );
 };
-
-export default Input;
-

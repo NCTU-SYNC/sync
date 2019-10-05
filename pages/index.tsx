@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Input from '~/modules/common/component/Input';
+import { InputGroup } from '~/modules/common/component/Input';
 import Button from '~/modules/common/component/Button';
 import Icon from '~/modules/common/component/Icon';
 import PostList from '~/modules/post/component/PostList';
 
 import Navbar from '~/modules/common/dumb/Navbar';
 import Footer from '~/modules/common/dumb/Footer';
+import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
 import fake from '~/fake/post';
 
@@ -19,6 +20,11 @@ const Main = styled.main`
 const Content = styled.div`
   flex: 1;
   width: 60%;
+`;
+
+const Blank = styled.div`
+  width: 100%;
+  height: 200px;
 `;
 
 const StyledPostList = styled(PostList)`
@@ -33,7 +39,7 @@ const ToolBar = styled.div`
   width: 100%;
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled(InputGroup)`
   flex-grow: 1;
   margin-right: 10px;
 `;
@@ -70,6 +76,8 @@ const Layout = () => {
           </ToolBar>
         </SideBar>
       </Main>
+      <Blank/>
+      <Main><OfferBlock/></Main>
       <Footer/>
     </>
   );
