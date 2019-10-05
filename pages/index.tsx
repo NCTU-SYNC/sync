@@ -10,7 +10,7 @@ import Navbar from '~/modules/common/dumb/Navbar';
 import Footer from '~/modules/common/dumb/Footer';
 import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
-import fake from '~/fake/post';
+import fake from '~/fake/posts';
 
 const Main = styled.main`
   display: flex;

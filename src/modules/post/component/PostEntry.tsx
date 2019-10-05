@@ -1,15 +1,23 @@
 import React, { useMemo } from 'react';
-import { IPost } from '../interface/IPost';
 import styled from 'styled-components';
+
+import Link from '~/modules/common/component/Link';
+
+import { IPost } from '../interface/IPost';
 
 interface IProps {
   post: IPost;
 }
 
-const Main = styled.div`
+const Main = styled(Link)`
   display: flex;
   padding: 20px 10px;
   border-bottom: 1px solid ${props => props.theme.textLightMore};
+
+  &:hover {
+    transition: 0.2s;
+    background-color: ${props => props.theme.textLightMore};
+  }
 `;
 
 const Body = styled.div`
@@ -88,7 +96,7 @@ const PostEntry = ({ post }: IProps) => {
   ), [ post ]);
 
   return (
-    <Main>
+    <Main to={`/post/${post.id}`}>
       <Body>
         <Title>{post.title}</Title>
         <Excerpt>{post.excerpt}</Excerpt>
