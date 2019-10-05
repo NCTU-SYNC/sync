@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { ThemeProvider as BaseThemeProvider } from 'styled-components';
 
 import themes, { ThemeNames } from '~/constants/themes';
+import Macro from '~/constants/themes/macro';
 import GlobalStyle from '~/constants/GlobalStyle';
 
 interface IProps {
@@ -12,11 +13,10 @@ interface IProps {
 const ThemeProvider = ({ children, theme = ThemeNames.DEFAULT }: IProps) => {
   const { common, desktop, mobile } = themes[theme];
   const selectedTheme = {
-    color: {
-      ...common,
-      ...desktop,
-      ...mobile,
-    }
+    ...common,
+    ...desktop,
+    ...mobile,
+    ...Macro,
   };
 
   return (

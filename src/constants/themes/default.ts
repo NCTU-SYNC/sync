@@ -1,7 +1,11 @@
 export default {
   common: {
-    primary: '#333',
-    secondary: '#777'
+    primary: 'rgb(239, 127, 108)',
+    secondary: '',
+    justWhite: '#fff',
+
+    textLight: '#ccc',
+    textLightMedium: '#929292',
   },
   desktop: {},
   mobile: {}
