@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Navbar from '~/modules/common/component/Navbar';
 import Input from '~/modules/common/component/Input';
 import Button from '~/modules/common/component/Button';
 import Icon from '~/modules/common/component/Icon';
+import PostList from '~/modules/post/component/PostList';
+
+import Navbar from '~/modules/common/dumb/Navbar';
+import Footer from '~/modules/common/dumb/Footer';
 
 import fake from '~/fake/post';
-import PostList from '~/modules/post/component/PostList';
 
 const Main = styled.main`
   display: flex;
@@ -63,11 +65,12 @@ const Layout = () => {
         </Content>
         <SideBar>
           <ToolBar>
-            <Input placeholder='Filter'/>
+            <StyledInput placeholder='Filter'/>
             <StyledButton size={35} outline>撰寫新聞</StyledButton>
           </ToolBar>
         </SideBar>
       </Main>
+      <Footer/>
     </>
   );
 };
