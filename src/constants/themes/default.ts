@@ -4,9 +4,12 @@ export default {
     secondary: '',
     justWhite: '#fff',
 
+    textDark: '#777',
     textLight: '#ddd',
-    textLightMedium: '#929292',
+    textLightMedium: '#aaa',
     textLightMore: '#eee',
+
+    imageBg: 'rgb(245,246,252)',
   },
   desktop: {},
   mobile: {}

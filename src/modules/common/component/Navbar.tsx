@@ -6,6 +6,7 @@ import Icon from './Icon';
 const Main = styled.div`
   position: sticky;
   top: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   width: 100%;

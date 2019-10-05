@@ -6,9 +6,24 @@ import Input from '~/modules/common/component/Input';
 import Button from '~/modules/common/component/Button';
 import Icon from '~/modules/common/component/Icon';
 
-const Content = styled.div`
+import fake from '~/fake/post';
+import PostList from '~/modules/post/component/PostList';
+
+const Main = styled.main`
+  display: flex;
   padding: 20px 40px;
 `;
+
+const Content = styled.div`
+  flex: 1;
+  width: 60%;
+`;
+
+const StyledPostList = styled(PostList)`
+  margin-top: 30px;
+`;
+
+const SideBar = styled.div``;
 
 const ToolBar = styled.div`
   display: flex;
@@ -37,15 +52,22 @@ const Layout = () => {
   return(
     <>
       <Navbar/>
-      <Content>
-        <ToolBar>
-          <StyledInput
-            left={<StyledButton size={35}>搜尋</StyledButton>}
-            right={<StyledIcon type='search' size={35}/>}/>
-          <StyledInput placeholder='Filter'/>
-          <StyledButton size={35} outline>撰寫新聞</StyledButton>
-        </ToolBar>
-      </Content>
+      <Main>
+        <Content>
+          <ToolBar>
+            <StyledInput
+              left={<StyledButton size={35}>搜尋</StyledButton>}
+              right={<StyledIcon type='search' size={35}/>}/>
+          </ToolBar>
+          <StyledPostList posts={fake}/>
+        </Content>
+        <SideBar>
+          <ToolBar>
+            <Input placeholder='Filter'/>
+            <StyledButton size={35} outline>撰寫新聞</StyledButton>
+          </ToolBar>
+        </SideBar>
+      </Main>
     </>
   );
 };
