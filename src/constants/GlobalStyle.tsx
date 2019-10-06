@@ -13,6 +13,12 @@ const GlobalStyle = createGlobalStyle<IGlobalStyle>`
   button {
     outline: none;
   }
+
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
 `;
 
 export default GlobalStyle;
