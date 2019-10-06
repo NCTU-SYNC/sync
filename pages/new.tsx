@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SearchPanel from '~/modules/post/component/searchPanel';
 
 import Navbar from '~/modules/common/dumb/Navbar';
-import Editor from '~/modules/common/dumb/Editor';
+import EditorPanel from '~/modules/common/dumb/EditorPanel';
 
 const Main = styled.div`
   height: 100%;
@@ -21,7 +21,7 @@ const New = () => {
     <Main>
       <Navbar/>
       <Body>
-        <Editor/>
+        <EditorPanel/>
         <SearchPanel/>
       </Body>
     </Main>

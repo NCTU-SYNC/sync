@@ -61,23 +61,34 @@ const ResizeBar = styled.div`
   }
 `;
 
-const Resizer = ({ children, onInit, onMouseMove, onTouchMove } : IResizer) => {
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    onMouseMove(window.innerWidth - event.clientX);
-  };
+/*
+  FIXME: still have some issue when mouse move.
 
-  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-    onTouchMove(window.innerWidth - event.touches[0].clientX);
-  };
+  const Resizer = ({ children, onInit, onMouseMove, onTouchMove } : IResizer) => {
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      onMouseMove(window.innerWidth - event.clientX);
+    };
 
+    const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+      onTouchMove(window.innerWidth - event.touches[0].clientX);
+    };
+
+    return (
+      <ResizeBar
+        onMouseDown={onInit}
+        onMouseMove={handleMouseMove}
+        onTouchStart={onInit}
+        onTouchMove={handleTouchMove}
+      >
+        {children}
+      </ResizeBar>
+    );
+  };
+*/
+
+const Resizer = ({ children } : IResizer) => {
   return (
-    <ResizeBar
-      onMouseDown={onInit}
-      onMouseMove={handleMouseMove}
-      onTouchStart={onInit}
-      onTouchMove={handleTouchMove}>
-      {children}
-    </ResizeBar>
+    <ResizeBar>{children}</ResizeBar>
   );
 };
 
