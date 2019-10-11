@@ -1,15 +1,13 @@
-import React, { ReactNode, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 interface IProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
-interface IResizer {
-  children?: ReactNode;
-  onInit: (event: any) => void;
-  onMouseMove: (screenX: number) => void;
-  onTouchMove: (screenX: number) => void;
+interface IState {
+  active: boolean;
+  widthString: string;
 }
 
 const Main = styled.div`
@@ -17,6 +15,7 @@ const Main = styled.div`
   right: 0;
   height: 100%;
   width: 50%;
+  min-width: 300px;
 `;
 
 const Body = styled.div`
@@ -51,7 +50,6 @@ const ResizeBar = styled.div`
   width: ${props => props.theme.RESIZER_WIDTH}px;
   height: 100%;
   transition: 0.2s;
-  opacity: 1;
   background-color: ${props => props.theme.textDark};
 
   &:hover {
@@ -61,60 +59,52 @@ const ResizeBar = styled.div`
   }
 `;
 
-/*
-  FIXME: still have some issue when mouse move.
-
-  const Resizer = ({ children, onInit, onMouseMove, onTouchMove } : IResizer) => {
-    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      onMouseMove(window.innerWidth - event.clientX);
+class Panel extends React.Component<IProps, IState> {
+  public constructor(props: IProps) {
+    super(props);
+    this.state = {
+      active: false,
+      widthString: '50%'
     };
+  }
 
-    const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-      onTouchMove(window.innerWidth - event.touches[0].clientX);
-    };
+  private setWidthString = ( width: string ) => {
+    this.setState({
+      widthString: width,
+    });
+  }
 
+  private toggleActive = () => {
+    this.setState(({ active }) => ({
+      active: !active,
+    }));
+  }
+
+  public componentDidMount(){
+    /* FIXME: Maybe low performance */
+    document.addEventListener('mousemove', (event) => {
+      const { active } = this.state;
+      if(active){
+        this.setWidthString(`${window.innerWidth - event.clientX}px`);
+      }
+    });
+    document.addEventListener('mouseup', this.toggleActive);
+  }
+
+  public render () {
+    const { children } = this.props;
+    const { widthString: width } = this.state;
     return (
-      <ResizeBar
-        onMouseDown={onInit}
-        onMouseMove={handleMouseMove}
-        onTouchStart={onInit}
-        onTouchMove={handleTouchMove}
-      >
-        {children}
-      </ResizeBar>
+      <Main style={{ width }}>
+        <ResizeBar onMouseDown={this.toggleActive}>
+          <Button/>
+        </ResizeBar>
+        <Body>
+          {children}
+        </Body>
+      </Main>
     );
-  };
-*/
-
-const Resizer = ({ children } : IResizer) => {
-  return (
-    <ResizeBar>{children}</ResizeBar>
-  );
-};
-
-const Panel = ({ children }: IProps) => {
-  const [active, setActive] = useState<boolean>(false);
-  const [width, setWidth] = useState<string>('50%');
-
-  const handleResize = (screenX: number) => {
-    if(active){
-      setWidth(`${screenX}px`);
-    }
-  };
-
-  return (
-    <Main style={{ width }}>
-      <Resizer
-        onInit={() => setActive(false)}
-        onMouseMove={handleResize}
-        onTouchMove={handleResize}>
-        <Button onDoubleClick={() => setWidth('50%')}></Button>
-      </Resizer>
-      <Body>
-        {children}
-      </Body>
-    </Main>
-  );
-};
+  }
+}
 
 export default Panel;
