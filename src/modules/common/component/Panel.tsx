@@ -74,21 +74,33 @@ class Panel extends React.Component<IProps, IState> {
     });
   }
 
-  private toggleActive = () => {
-    this.setState(({ active }) => ({
-      active: !active,
-    }));
+  private setInactive = () => {
+    this.setState({ active: false });
+  }
+
+  private setActive = () => {
+    this.setState({ active: true });
+  }
+
+  private onDesktopResize = (event: MouseEvent) => {
+    const { active } = this.state;
+
+    if(active){
+      this.setWidthString(`${window.innerWidth - event.clientX}px`);
+    }
+  }
+
+  private onMobileResize = (event: React.TouchEvent<HTMLDivElement>) => {
+    const { active } = this.state;
+    if(active){
+      this.setWidthString(`${window.innerWidth - event.touches[0].clientX}px`);
+    }
   }
 
   public componentDidMount(){
     /* FIXME: Maybe low performance */
-    document.addEventListener('mousemove', (event) => {
-      const { active } = this.state;
-      if(active){
-        this.setWidthString(`${window.innerWidth - event.clientX}px`);
-      }
-    });
-    document.addEventListener('mouseup', this.toggleActive);
+    document.addEventListener('mousemove', this.onDesktopResize);
+    document.addEventListener('mouseup', this.setInactive);
   }
 
   public render () {
@@ -96,7 +108,11 @@ class Panel extends React.Component<IProps, IState> {
     const { widthString: width } = this.state;
     return (
       <Main style={{ width }}>
-        <ResizeBar onMouseDown={this.toggleActive}>
+        <ResizeBar
+          onMouseDown={this.setActive}
+          onTouchStart={this.setActive}
+          onTouchEnd={this.setInactive}
+          onTouchMove={this.onMobileResize}>
           <Button/>
         </ResizeBar>
         <Body>
