@@ -29,6 +29,11 @@
     "polished": "^3.4.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-observable": "^1.2.0",
+    "rxjs": "^6.5.3",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
@@ -37,6 +42,8 @@
     "@types/node": "^12.7.7",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.4",
+    "@types/redux-actions": "^2.6.1",
     "@types/styled-components": "^4.1.19",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
@@ -46,6 +53,7 @@
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.5",
     "lint-staged": "^9.4.0",
+    "redux-devtools-extension": "^2.13.8",
     "stylelint": "^11.0.0",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-config-styled-components": "^0.1.1",
