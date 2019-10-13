@@ -103,6 +103,11 @@ class Panel extends React.Component<IProps, IState> {
     document.addEventListener('mouseup', this.setInactive);
   }
 
+  public componentWillUnmount() {
+    document.removeEventListener('mousemove', this.onDesktopResize);
+    document.removeEventListener('mouseup', this.setInactive);
+  }
+
   public render () {
     const { children } = this.props;
     const { widthString: width } = this.state;
