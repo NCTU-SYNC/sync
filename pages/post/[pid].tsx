@@ -61,8 +61,8 @@ const Post = () => {
               <StyledGreyButton size={35} outline>討論區</StyledGreyButton>
             </ButtonGroup>
             <ButtonGroup>
-              <StyledButton size={35} outline>歷史紀錄</StyledButton>
-              <StyledButton size={35} outline>編輯新聞</StyledButton>
+              <StyledButton size={35} oval outline>歷史紀錄</StyledButton>
+              <StyledButton size={35} oval outline>編輯新聞</StyledButton>
             </ButtonGroup>
           </ToolBar>
           <PostContent post={post}/>
