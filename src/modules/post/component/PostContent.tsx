@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Chip from '~/modules/common/component/Chip';
+import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
-import { IPost } from '../interface/IPost';
+import { INewPost } from '../interface/IPost';
 
 interface IProps {
   className?: string;
-  post: IPost;
+  post: INewPost;
 }
 
 const Main = styled.div`
@@ -51,39 +52,58 @@ const Blank = styled.div`
   margin-bottom: 15px;
 `;
 
+const TagMain = styled.div`
+  width: 100%;
+`;
+
+const QuoteMain = styled.div`
+  width: 100%;
+  margin-bottom: 40px;
+`;
+
 const Quote = styled.div`
   width: 100%;
   color: ${props => props.theme.textLightMedium};
   font-size: 14px;
 `;
 
+const OfferMain = styled.main`
+  display: flex;
+  padding: 20px 40px;
+`;
+
+
 const PostContent = ({ post, className }: IProps) => (
-  <Main className={className}>
-    <Body>
-      {
-        post && 
-        <>
-          <Title>{post.title}</Title>
-          <Chip size={25}>#hashtag</Chip>
-          <Chip size={25}>#Microsoft</Chip>
-          <Chip size={25}>#Google</Chip>
-          <Content>
-            <Img/>
-            <Excerpt>{post.excerpt}</Excerpt>
-            <Img/>
-            <Excerpt>{post.excerpt}</Excerpt>
-            <Blank/>
-            <Quote>[注1] Life is like riding a bicycle. To keep your balance, you must keep moving.
-—— Albert Einstein</Quote>
-            <Quote>[注2] 小時候雖然窮但是很快樂，現在不一樣了，不僅窮還不快樂。
-—— 毒雞湯</Quote>
-            <Quote>[注3] 女人也許會欺騙你，兄弟也許會背叛你，但數學不會，數學不會就是不會。
-—— 毒雞湯</Quote>
-          </Content>
-        </>
-      }
-    </Body>
-  </Main>
+  <>
+    <Main className={className}>
+      <Body>
+        {
+          post && 
+          <>
+            <Title>{post.title}</Title>
+            <TagMain>
+              {post.tags && post.tags.map(tag => <Chip key={tag} size={25}>#{tag}</Chip>)}
+            </TagMain>
+            <Content>
+              <Img/>
+              <Excerpt>{post.excerpt}</Excerpt>
+              <Img/>
+              <Excerpt>{post.excerpt}</Excerpt>
+              <Blank/>
+              <QuoteMain>
+                {
+                  post.quotes && post.quotes.map((quote, index) => 
+                    <Quote key={quote}>{`[注${index+1}]: ${quote}`}</Quote>
+                  )
+                }
+              </QuoteMain>
+            </Content>
+          </>
+        }
+      </Body>
+    </Main>
+    <OfferMain><OfferBlock/></OfferMain>
+  </>
 );
 
 export default PostContent;

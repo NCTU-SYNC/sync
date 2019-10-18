@@ -7,7 +7,7 @@ import Footer from '~/modules/common/dumb/Footer';
 import Button from '~/modules/common/component/Button';
 import PostContent from '~/modules/post/component/PostContent';
 
-import fake from '~/fake/posts';
+import fake from '~/fake/new_posts';
 
 const Main = styled.main`
   display: flex;
