@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
+    "is-hotkey": "^0.1.6",
     "lodash": "^4.17.15",
     "next": "^9.0.6",
     "polished": "^3.4.1",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
+    "@types/is-hotkey": "^0.1.1",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.7.7",
     "@types/react": "^16.9.2",
