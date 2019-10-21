@@ -14,7 +14,7 @@ const Main = styled.div`
   padding: 30px 20px 35px;
   background-color: ${props => props.theme.justWhite};
 
-  &::after {
+  /* &::after {
     content: '';
     position: absolute;
     display: inline-block;
@@ -24,7 +24,7 @@ const Main = styled.div`
     width: calc(100% - 80px);
     height: 1px;
     background-color: ${props => props.theme.textLight};
-  }
+  } */
 `;
 
 const Logo = styled.div`

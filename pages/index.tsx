@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { InputGroup } from '~/modules/common/component/Input';
@@ -37,6 +38,7 @@ const ToolBar = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  background-color: ${props => props.theme.justWhite};
 `;
 
 const StyledInput = styled(InputGroup)`
@@ -57,6 +59,7 @@ const StyledIcon = styled(Icon)`
 `;
 
 const Layout = () => {
+  const router = useRouter();
   return(
     <>
       <Navbar/>
@@ -72,7 +75,7 @@ const Layout = () => {
         <SideBar>
           <ToolBar>
             <StyledInput placeholder='Filter'/>
-            <StyledButton size={35} outline>撰寫新聞</StyledButton>
+            <StyledButton size={35} outline onClick={() => router.push('/new')}>撰寫新聞</StyledButton>
           </ToolBar>
         </SideBar>
       </Main>

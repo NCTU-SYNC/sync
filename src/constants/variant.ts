@@ -1,6 +1,7 @@
 enum Variant {
   PRIMARY = 'primary',
-  SECONDARY = 'secondary'
+  SECONDARY = 'secondary',
+  NONE = 'none',
 }
 
 export default Variant;

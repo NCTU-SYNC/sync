@@ -12,6 +12,7 @@ interface IProps {
   variant?: Variant;
   children: ReactNode;
   onClick?: (evnet: any) => void;
+  onMouseDown?: (event: any) => void;
 }
 
 const Main = styled.button<IProps>`
@@ -23,7 +24,7 @@ const Main = styled.button<IProps>`
   height: ${props => props.size}px;
   line-height: ${props => props.size}px;
   padding: 0 30px;
-  color: ${props => props.theme.justWhite};
+  color: ${props => props.variant === Variant.NONE ? props.theme.textLightMedium : props.theme.justWhite};
   background-color: ${props => props.theme[props.variant || Variant.PRIMARY]};
   ${props => props.outline && `
     border: 1px solid ${props.theme[props.variant || Variant.PRIMARY]};

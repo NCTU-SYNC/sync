@@ -2,6 +2,7 @@ export default {
   common: {
     primary: 'rgb(240, 123, 103)',
     secondary: '',
+    none: '#fff',
     justWhite: '#fff',
 
     textDark: '#777',
