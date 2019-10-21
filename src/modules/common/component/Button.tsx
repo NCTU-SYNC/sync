@@ -12,6 +12,7 @@ interface IProps {
   variant?: Variant;
   children: ReactNode;
   onClick?: (evnet: any) => void;
+  onMouseDown?: (event: any) => void;
 }
 
 const Main = styled.button<IProps>`

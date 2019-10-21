@@ -50,8 +50,8 @@ const Action = styled.div`
 
 const StyledEditor = styled(CustomEditor)`
   height: calc(100% - 80px);
-  border: 1px solid ${props => props.theme.textLightMedium};
   margin: 10px 0;
+  border: 1px solid ${props => props.theme.textLightMedium};
 `;
 
 const EditorPanel = ({ className }: IProps) => (
