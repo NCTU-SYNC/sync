@@ -7,12 +7,9 @@ interface IProps {
   value?: string;
 }
 
-interface IGroupProps {
-  className?: string;
+interface IGroupProps extends IProps {
   left?: React.ReactNode;
   right?: React.ReactNode;
-  placeholder?: string;
-  value?: string;
 }
 
 const Main = styled.div`
@@ -44,12 +41,14 @@ export const Input = (props: IProps) => (
   <StyledInput {...props}/>
 );
 
-export const InputGroup = ({ className, left, right, ...props }: IGroupProps) => {
-  return (
+export const InputGroup = React.forwardRef<HTMLInputElement, IGroupProps>(
+  ({ className, left, right, ...props }: IGroupProps, ref) => (
     <Main className={className}>
       {left}
-      <InputInGroup {...props}/>
+      <InputInGroup ref={ref} {...props}/>
       {right}
     </Main>
-  );
-};
+  )
+);
+
+InputGroup.displayName = 'InputGroup';
