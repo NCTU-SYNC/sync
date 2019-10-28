@@ -53,5 +53,6 @@ module.exports = {
             }
         ],
         "eol-last": 2,
+        "no-console": "warn",
     }
 };
