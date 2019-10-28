@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
-import { handleActions } from 'redux-actions';
 
-const test = handleActions({}, {});
+import article, { IArticleState } from '~/modules/article/reducer';
+
+export interface IState {
+  article: IArticleState;
+}
 
 export default combineReducers({
-  test,
+  article,
 });
