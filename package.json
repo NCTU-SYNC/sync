@@ -24,11 +24,13 @@
     ]
   },
   "dependencies": {
+    "immer": "^4.0.2",
     "immutable": "^4.0.0-rc.12",
     "is-hotkey": "^0.1.6",
     "lodash": "^4.17.15",
     "next": "^9.0.6",
     "polished": "^3.4.1",
+    "qs": "^6.9.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
@@ -46,6 +48,7 @@
     "@types/is-hotkey": "^0.1.1",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.7.7",
+    "@types/qs": "^6.5.3",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.4",
