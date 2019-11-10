@@ -31,10 +31,9 @@ const Main = styled.main`
 const SlideWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 420px;
   justify-content: center;
   align-items: center;
-  border: 2px solid red;
 `;
 
 const slideWidth = 30;
@@ -45,7 +44,7 @@ const SlideBetween = styled.div<ISlideProps>`
   height: ${slideHeight}px;
   overflow: hidden;
   margin: auto;
-  transition: left 2s, opacity 2s ease-in-out, height 2s, width 2s;
+  transition: left 2s, opacity 2s, height 2s, width 2s;
   top: 50%;
   transform: translate(-50%, -50%);
   ${props => props.order === 1 && `
@@ -76,7 +75,7 @@ const SlideBetween = styled.div<ISlideProps>`
 const SlideImg = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   background-color: #ddd;
   filter: grayscale(0.5);
 
@@ -99,6 +98,7 @@ const SlideTitle = styled.div`
   color: black;
   font-weight: bold;
   font-size: 18px;
+  letter-spacing: 5px;
   border-radius: 0 0 2px 2px;
 `;
 
@@ -111,6 +111,40 @@ const SlideContent = styled.div`
   font-size: 20px;
   line-height: 1.2em;
   background-color: transparent;
+`;
+
+const IndicatorsWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  bottom: 0;
+`;
+
+const TargetIndicator = styled.span`
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin: 5px;
+  background-color: ${props => props.theme.primary};
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Indicator = styled.span`
+  width: 5px;
+  height: 5px;
+  border-radius: 999em;
+  margin: 5px;
+  background-color: ${props => props.theme.textLightMedium};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 class PostCarousel extends React.Component<IProps, IState> {
@@ -135,14 +169,12 @@ class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState>  {
         '/static/avatar2.jpg',
         'https://picsum.photos/500/400?random=5',
         'https://picsum.photos/500/400?random=6',
-        'https://picsum.photos/500/400?random=7',
-        'https://picsum.photos/500/400?random=8',
       ],
     };
   }
   public intervalID: number = 0;
   private generateItems = () => {
-    const slideItemList = [];
+    let slideItemList = [];
     const activeIndex = this.state.currentImageIndex;
     let count = 1;
     for (let i = activeIndex - 2; i < activeIndex + 3; i++) {
@@ -158,7 +190,7 @@ class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState>  {
           <SlideBetween key={index} order={slideOrder}>
             <SlideTitle>相關新聞</SlideTitle>
             <SlideContent>庶民選總統 誰是落跑市長<br/> 高雄大家長韓國魚爸爸捕魚去</SlideContent>
-            <SlideImg/>
+            <SlideImg src={this.state.images[index]}/>
           </SlideBetween>
         );
       } else {
@@ -173,12 +205,30 @@ class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState>  {
     }
     return slideItemList;
   }
+  private generateIndicators = () => {
+    let indicatorList = [];
+    for (let i = 0; i < this.state.images.length; i++) {
+      if (i === this.state.currentImageIndex) {
+        indicatorList.push(
+          <TargetIndicator key={i} onClick={() => this.setIndicator(i)}/>
+        );
+      } else {
+        indicatorList.push(
+          <Indicator key={i} onClick={() => this.setIndicator(i)}/>
+        );
+      }
+    }
+    return indicatorList;
+  }
   private moveLeft = () => {
     const index = (this.state.currentImageIndex + 1) % this.state.images.length;
     this.setState({ currentImageIndex: index });
   }
   private moveRight = () => {
     const index = this.state.currentImageIndex - 1 < 0 ? this.state.images.length - 1 : this.state.currentImageIndex;
+    this.setState({ currentImageIndex: index });
+  }
+  private setIndicator = ( index: number ) => {
     this.setState({ currentImageIndex: index });
   }
   public componentDidMount() {
@@ -190,8 +240,8 @@ class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState>  {
   public render() {
     return (
       <SlideWrapper>
-        <button style={{zIndex: 100, position: 'absolute', right: '0px'}} onClick={() => this.moveLeft()}>＞</button>
         {this.generateItems()}
+        <IndicatorsWrapper>{this.generateIndicators()}</IndicatorsWrapper>
       </SlideWrapper>
     );
   }
