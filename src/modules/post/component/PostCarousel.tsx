@@ -31,21 +31,21 @@ const Main = styled.main`
 const SlideWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 400px;
   justify-content: center;
   align-items: center;
   border: 2px solid red;
 `;
 
 const slideWidth = 30;
-const slideHeight = 200;
+const slideHeight = 300;
 const SlideBetween = styled.div<ISlideProps>`
   position: absolute;
   width: ${slideWidth}%;
   height: ${slideHeight}px;
   overflow: hidden;
   margin: auto;
-  transition: left 2s, opacity 2s, height 2s, width 2s;
+  transition: left 2s, opacity 2s ease-in-out, height 2s, width 2s;
   top: 50%;
   transform: translate(-50%, -50%);
   ${props => props.order === 1 && `
@@ -59,7 +59,7 @@ const SlideBetween = styled.div<ISlideProps>`
   `}
   ${props => props.order === 3 && `
     width: 38%;
-    height: 250px;
+    height: ${slideHeight + 50}px;
     left: 50%;
   `}
   ${props => props.order === 4 && `
@@ -77,12 +77,40 @@ const SlideImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background-color: #eee;
+  background-color: #ddd;
   filter: grayscale(0.5);
 
   &:hover {
     filter: none;
   }
+`;
+
+const SlideTitle = styled.div`
+  position: absolute;
+  display: flex;
+  width: 80%;
+  height: 20%;
+  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 0 0 2px 2px;
+`;
+
+const SlideContent = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  color: white;
+  font-size: 20px;
+  line-height: 1.2em;
+  background-color: transparent;
 `;
 
 class PostCarousel extends React.Component<IProps, IState> {
@@ -125,11 +153,22 @@ class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState>  {
         index = i % this.state.images.length;
       }
       const slideOrder = count;
-      slideItemList.push(
-        <SlideBetween key={index} order={slideOrder}>
-          <SlideImg src={this.state.images[index]}/>
-        </SlideBetween>
-      );
+      if (count === 3) {
+        slideItemList.push(
+          <SlideBetween key={index} order={slideOrder}>
+            <SlideTitle>相關新聞</SlideTitle>
+            <SlideContent>庶民選總統 誰是落跑市長<br/> 高雄大家長韓國魚爸爸捕魚去</SlideContent>
+            <SlideImg/>
+          </SlideBetween>
+        );
+      } else {
+        slideItemList.push(
+          <SlideBetween key={index} order={slideOrder}>
+            <SlideImg src={this.state.images[index]}/>
+          </SlideBetween>
+        );
+      }
+      
       count = count + 1;
     }
     return slideItemList;
