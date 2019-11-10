@@ -10,7 +10,9 @@ export default {
     textLightMedium: '#aaa',
     textLightMore: '#eee',
 
-    imageBg: 'rgb(245,246,252)',
+    imageBg: '#e0e0e0',
+
+    chipBg: '#eee',
   },
   desktop: {},
   mobile: {}
