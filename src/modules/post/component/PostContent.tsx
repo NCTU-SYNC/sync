@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Chip from '~/modules/common/component/Chip';
+import PostCarousel from './PostCarousel';
 import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
 import { INewPost } from '../interface/IPost';
@@ -102,6 +103,7 @@ const PostContent = ({ post, className }: IProps) => (
         }
       </Body>
     </Main>
+    <PostCarousel/>
     <OfferMain><OfferBlock/></OfferMain>
   </>
 );
