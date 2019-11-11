@@ -9,8 +9,7 @@ import twitter from '~/constants/svgs/twitter.svg';
 
 import bold from '~/constants/svgs/bold.svg';
 import italic from '~/constants/svgs/italic.svg';
-import underlined from '~/constants/svgs/underlined.svg';
-import code from '~/constants/svgs/code.svg';
+import underline from '~/constants/svgs/underline.svg';
 import h1 from '~/constants/svgs/h1.svg';
 import ol from '~/constants/svgs/ol.svg';
 import ul from '~/constants/svgs/ul.svg';
@@ -26,8 +25,7 @@ export const IconTypes = {
   // editor
   bold,
   italic,
-  underlined,
-  code,
+  underline,
   h1,
   ol,
   ul,

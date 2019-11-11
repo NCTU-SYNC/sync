@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Variant from '~/constants/variant';
 
 import Button from '../component/Button';
-import CustomEditor from '../component/Editor';
+import CustomEditor from '../../editor';
 
 interface IProps {
   className?: string;
