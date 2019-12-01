@@ -148,7 +148,11 @@ const Editor = ({ className, children, plugins = [] }: IProps) => {
   };
 
   const onToggle = (type: string) => () => {
-    setEditorState(RichUtils.toggleBlockType(editorState, type));
+    const selectionState = editorState.getSelection();
+    setEditorState(EditorState.forceSelection(
+      RichUtils.toggleBlockType(editorState, type),
+      selectionState,
+    ));
   };
   const isActive = (editorState: EditorState, type: string) => {
     const selection = editorState.getSelection();
