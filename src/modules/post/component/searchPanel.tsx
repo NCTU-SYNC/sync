@@ -12,6 +12,8 @@ import { IState } from '~/modules/common/redux/reducers';
 import { IAritcle } from '~/modules/article/reducer';
 import { listArticle } from '~/modules/article/action';
 import { getPaginationKey } from '~/modules/common/redux/getPaginationKey';
+import { darken } from 'polished';
+import copyToClipboard from '~/modules/common/utils/copyToClipboard';
 
 interface IEntry {
   article: IAritcle;
@@ -29,6 +31,17 @@ const StyledIcon = styled(Icon)`
   background-color: ${props => props.theme.textLightMore};
   color: white;
   fill: ${props => props.theme.textLightMedium};
+  transition: 0.3s;
+
+  &:hover {
+    fill: white;
+    background: ${props => darken(.3, props.theme.textLightMore)};
+  }
+
+  &:active {
+    fill: white;
+    background: ${props => darken(.15, props.theme.textLightMore)};
+  }
 `;
 
 const Tags = styled.div`
@@ -82,7 +95,7 @@ const Bottom = styled.div`
 `;
 
 const FakeLink = styled.span`
-  cursor: pointer;
+  cursor: not-allowed;
   flex: 1;
   font-size: 10px;
   color: ${props => props.theme.primary};
@@ -96,17 +109,28 @@ const StyledButton = styled(Button)`
   font-size: 13px;
   font-weight: normal;
 `;
+const Message = styled.div`
+  width: 100%;
+  text-align: center;
+  color: ${props => props.theme.textLightDark};
+`;
 
-const SearchEntry = ({ article }: IEntry) => (
-  <Main>
-    <Title>{article.title}</Title>
-    <Content>{article.outline}</Content>
-    <Bottom>
-      <FakeLink>收起此篇新聞</FakeLink>
-      <StyledButton>引用全文</StyledButton>
-    </Bottom>
-  </Main>
-);
+const SearchEntry = ({ article }: IEntry) => {
+  const handleClick = () => {
+    copyToClipboard(`${article.title}\n\n${article.outline}`);
+  };
+
+  return (
+    <Main>
+      <Title>{article.title}</Title>
+      <Content>{article.outline}</Content>
+      <Bottom>
+        <FakeLink>收起此篇新聞</FakeLink>
+        <StyledButton onClick={handleClick}>複製全文</StyledButton>
+      </Bottom>
+    </Main>
+  );
+};
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
@@ -115,26 +139,38 @@ const SearchPanel = () => {
     ...oc(ref.current).value('') && { q: oc(ref.current).value('') }
   });
 
+  const loading = useSelector((state:IState) => (
+    oc(state).article.paginations[paginationKey].loading(false)));
+
   const articles = useSelector((state:IState) => (
     oc(state).article.paginations[paginationKey].index([])
   ).map(id => state.article.data[id]));
 
-  const handleSearch = () => {
+  const handleSearch = (value?: string) => {
     dispatch(listArticle({
-      query: oc(ref.current).value(''),
+      query: value || oc(ref.current).value(''),
     }));
   };
 
   return (
     <Panel>
-      <SearchField ref={ref} right={<StyledIcon size={35} type='search' onClick={handleSearch}/>}/>
+      <SearchField
+        ref={ref}
+        right={<StyledIcon size={35} type='search'/>}
+        placeholder='開始搜尋你有興趣的新聞'
+        onSumbit={handleSearch}/>
       <Tags>
         <Tag>時間</Tag>
         <Tag>新聞來源</Tag>
       </Tags>
-      {articles.length > 0 && articles.map(article => (
-        <SearchEntry key={article['_id']} article={article}/>
-      ))}
+      {loading
+        ? 'loading...'
+        : articles.length > 0
+          ? articles.map(article => (
+            <SearchEntry key={article['_id']} article={article}/>
+          ))
+          : paginationKey !== 'default' && <Message>查無相關新聞</Message>
+      }
     </Panel>
   );
 };
