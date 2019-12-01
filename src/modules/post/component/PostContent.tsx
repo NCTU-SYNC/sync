@@ -6,10 +6,12 @@ import PostCarousel from './PostCarousel';
 import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
 import { INewPost } from '../interface/IPost';
+import { IPostContent } from '../interface/IPost';
 
 interface IProps {
   className?: string;
   post: INewPost;
+  postContent: IPostContent;
 }
 
 const Main = styled.div`
@@ -74,9 +76,10 @@ const OfferMain = styled.main`
 `;
 
 
-const PostContent = ({ post, className }: IProps) => (
+const PostContent = ({ post, postContent, className }: IProps) => (
   <>
     <Main className={className}>
+      {console.log(postContent)}
       <Body>
         {
           post && 

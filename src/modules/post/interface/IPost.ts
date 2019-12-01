@@ -21,3 +21,23 @@ export interface INewPost {
   editing: boolean;
   editCount: number;
 }
+
+export interface IPostContent {
+  blocks: IPostContentObject[];
+}
+
+interface IPostContentObject {
+  data: object,
+  depth: number;
+  entityRanges: string[],
+  inlineStyleRanges: IPostContentInlineStyle[],
+  key: string;
+  text: string;
+  type: string;
+}
+
+interface IPostContentInlineStyle {
+  length: number,
+  offset: number,
+  style: string,
+}
