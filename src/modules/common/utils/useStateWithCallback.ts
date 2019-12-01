@@ -1,17 +1,13 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import noop from 'lodash/noop';
 
-type SetState<T> = Dispatch<SetStateAction<T>>;
+type ReturnType<S> = [S, Dispatch<SetStateAction<S>>];
 
-const useStateWithCallback = <T extends unknown>(
-  initialState: T,
-  callback: Function = noop,
-): [ T,  SetState<T>] => {
-  const [state, setState] = useState<T>(initialState);
+function useStateWithCallback<S>(initialState: S, callback: Function): ReturnType<S> {
+  const [state, setState] = useState<S | typeof initialState>(initialState);
 
-  useEffect(() => callback(state), [ state ]);
+  useEffect(() => callback(state), [state, callback]);
 
-  return [ state, setState ];
-};
+  return [state, setState];
+}
 
 export default useStateWithCallback;
