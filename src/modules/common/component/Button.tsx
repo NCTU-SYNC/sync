@@ -3,6 +3,7 @@ import { noop } from 'lodash';
 import styled from 'styled-components';
 
 import Variant from '~/constants/variant';
+import { darken } from 'polished';
 
 interface IProps {
   className?: string;
@@ -35,6 +36,14 @@ const Main = styled.button<IProps>`
   ${props => props.oval && `
     border-radius: ${props.size ? props.size * 0.618 : 25}px;
   `}
+
+  &:hover {
+    background: ${props => darken(.05, props.theme[props.variant || Variant.PRIMARY])};
+  }
+
+  &:active {
+    background: ${props => darken(.08, props.theme[props.variant || Variant.PRIMARY])};
+  }
 `;
 
 const Button = ({ children, onClick = noop, ...props }: IProps) => (
