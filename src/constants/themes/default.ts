@@ -4,8 +4,8 @@ export default {
     secondary: '',
     none: '#fff',
     justWhite: '#fff',
+    textDark: '#3b3b3b',
 
-    textDark: '#777',
     textLight: '#ddd',
     textLightMedium: '#aaa',
     textLightMore: '#eee',

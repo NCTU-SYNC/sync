@@ -16,7 +16,6 @@ const Main = styled.div`
   background-color: ${props => props.theme.justWhite};
   padding: 10px;
 `;
-
 const ToolBar = styled.div`
   position: relative;
   display: flex;
@@ -32,22 +31,18 @@ const ToolBar = styled.div`
     background-color: ${props => props.theme.textLight};
   }
 `;
-
 const Wrapper = styled.div`
   flex: 1;
 `;
-
 const StyledButton = styled(Button)`
   border: 1px solid ${props => props.variant === Variant.NONE ? props.theme.textLight : 'transparent'};
   padding: 5px 15px;
   margin-right: 10px;
 `;
-
 const Action = styled.div`
   position: relative;
   width: 100%;
 `;
-
 const StyledEditor = styled(CustomEditor)`
   height: calc(100% - 80px);
   margin: 10px 0;

@@ -7,13 +7,7 @@ import fb from '~/constants/svgs/fb.svg';
 import ig from '~/constants/svgs/ig.svg';
 import twitter from '~/constants/svgs/twitter.svg';
 
-import bold from '~/constants/svgs/bold.svg';
-import italic from '~/constants/svgs/italic.svg';
-import underline from '~/constants/svgs/underline.svg';
-import h1 from '~/constants/svgs/h1.svg';
-import ol from '~/constants/svgs/ol.svg';
-import ul from '~/constants/svgs/ul.svg';
-import quote from '~/constants/svgs/quote.svg';
+import photo from '~/constants/svgs/photo.svg';
 
 export const IconTypes = {
   search,
@@ -23,13 +17,7 @@ export const IconTypes = {
   twitter,
 
   // editor
-  bold,
-  italic,
-  underline,
-  h1,
-  ol,
-  ul,
-  quote,
+  photo,
 };
 
 interface IProps {

@@ -1,183 +1,208 @@
-import React, { useState, useEffect } from 'react';
-import {
-  EditorState,
-  RichUtils,
-  getDefaultKeyBinding,
-  KeyBindingUtil,
-  convertFromRaw,
-  convertToRaw
-} from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
+import React, { useState, useEffect, SetStateAction, Dispatch, useCallback } from 'react';
+import { EditorState, RichUtils } from 'draft-js';
+import PluginEditor, { EditorPlugin, composeDecorators } from 'draft-js-plugins-editor';
+
 import styled from 'styled-components';
-
 import Icon from '../common/component/Icon';
-import Button from '../common/component/Button';
-import useStateWithCallback from '~/modules/common/utils/useStateWithCallback';
-import storeIntoLocalStorage from '../common/utils/storeIntoLocalStorage';
 
-enum MARK_TYPES {
-  BOLD = 'bold',
-  ITALIC = 'italic',
-  UNDERLINE = 'underline',
+import { Map } from 'immutable';
+import useStateWithCallback from '../common/utils/useStateWithCallback';
+
+
+import createStoragePlugin from './plugins/storagePlugin';
+import createImagePlugin from 'draft-js-image-plugin';
+import createFocusPlugin from 'draft-js-focus-plugin';
+import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
+
+if (typeof window !== 'undefined') {
+  require('!!style-loader!css-loader!draft-js/dist/Draft.css');
+  require('!!style-loader!css-loader!draft-js-focus-plugin/lib/plugin.css');
 }
 
-// enum BLOCK_TYPES {
-//   H1 = 'heading-one',
-//   QUOTE = 'block-quote',
-//   OL = 'numbered-list',
-//   UL = 'bulleted-list',
-//   LI = 'list-item',
-//   DEFAULT = 'paragraph',
-// }
-
-
+interface IChildrenProps {
+  useEditorState: [EditorState, Dispatch<SetStateAction<EditorState>>];
+}
 interface IProps {
   className?: string;
-}
-
-interface IButton {
-  active: boolean;
+  children?: React.ReactNode | ((props: IChildrenProps) => React.ReactNode);
+  plugins?: Array<EditorPlugin>;
 }
 
 const Main = styled.div`
+  display: flex;
+  flex-direction: column;
   overflow-y: hidden;
   word-break: break-all;
 `;
 const Toolbar = styled.div`
   display: flex;
   padding: 0 10px;
+  margin-bottom: 5px;
   border-bottom: 1px solid ${props => props.theme.textLight};
 `;
-const StyledButton = styled(Button)<IButton>`
+const Tile = styled.div<{ active: boolean }>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 5px;
+  height: 35px;
   background-color: white;
+  color: ${props => props.active ? props.theme.textMedium : props.theme.textLightMedium};
   fill: ${props => props.active ? props.theme.textMedium : props.theme.textLightMedium};
+  font-size: 16px;
+  font-weight: 500;
 
   &:hover {
     transition: 0.2s;
     background-color: ${props => props.theme.textLightMore};
   }
 `;
-const EditorWrapper = styled.div`
+const Input = styled.input`
+  display: none;
+`;
+const Wrapper = styled.div`
   overflow-y: auto;
   height: 100%;
-  padding: 10px;
-  line-height: 1.4;
+  padding: 0 5px;
+  line-height: 1.5em;
+  font-size: 18px;
+  color: ${props => props.theme.textDark};
+
+  img {
+    max-width: 80%;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: ${props => props.theme.textDark};
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: ${props => props.theme.primary};
+  }
 `;
 
-const CustomEditor = ({ className }: IProps) => {
-  const editor = React.useRef<Editor>(null);
+const { getDraft, ...storagePlugin } = createStoragePlugin();
+const focusPlugin = createFocusPlugin();
+const blockDndPlugin = createBlockDndPlugin();
+
+const decorator = composeDecorators(
+  focusPlugin.decorator,
+  blockDndPlugin.decorator
+);
+const {addImage, ...imagePlugin} = createImagePlugin({ decorator });
+
+
+const Editor = ({ className, children, plugins = [] }: IProps) => {
+  const editor = React.useRef<PluginEditor>(null);
+
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  /**
-   *  draft-js has some problem with SSR framework.
-   *  more info checkout https://github.com/zeit/next.js/issues/1722
-   */
-  const focus = () => {
-    if (!editor.current) {
-      return;
-    }
-
-    editor.current.focus();
-  };
-
-  const [ mounted, setMounted ] = useStateWithCallback<boolean>(false, focus);
-
-  useEffect(() => {
-    setMounted(true);
-    if (window) {
-      const storeRaw = window.localStorage.getItem('editor');
-      if (!storeRaw) {
-        return;
-      }
-
-      const rawContentFromStore = convertFromRaw(JSON.parse(storeRaw));
-      const initialEditorState = EditorState.createWithContent(rawContentFromStore);
-      setEditorState(initialEditorState);
-    }
-  }, []);
 
   const handleChange = (editorState: EditorState) => {
     setEditorState(editorState);
+    // onChange(editorState);
   };
 
-  const keyBindingFn = (e: React.KeyboardEvent) => {
-    if (KeyBindingUtil.hasCommandModifier(e) && e.key === 'b') {
-      return 'bold';
+  const focus = useCallback(() => {
+    if (editor.current) {
+      editor.current.focus();
     }
-    if (KeyBindingUtil.hasCommandModifier(e) && e.key === 'i') {
-      return 'italic';
-    }
-    if (KeyBindingUtil.hasCommandModifier(e) && e.key === 'u') {
-      return 'underline';
-    }
-    if (KeyBindingUtil.hasCommandModifier(e) && e.key === 's') {
-      return 'save';
-    }
-    return getDefaultKeyBinding(e);
-  };
+  }, []);
 
-  const handleKeyCommand = (command: string) => {
-    switch (command) {
-    case 'save': {
-      const contentState = editorState.getCurrentContent();
-      const rawContent = convertToRaw(contentState);
-      storeIntoLocalStorage('editor', rawContent);
-      return 'handled';
-    }
-    case 'bold':
-      setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
-      return 'handled';
-    case 'italic':
-      setEditorState(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-      return 'handled';
-    case 'underline':
-      setEditorState(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
-      return 'handled';
-    default:
-      return 'not-handled';
-    }
-  };
+  const [mount, setMount] = useStateWithCallback(false, focus);
+  useEffect(() => {
+    setMount(true);
+    const draft = getDraft();
+    setEditorState(draft);
+  }, []);
 
-  const renderMarkButton = (markType: MARK_TYPES) => {
-    const handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
+  const blockRenderMap = Map({
+    title: {
+      element: 'h1',
+    },
+    subtitle: {
+      element: 'h2'
+    },
+    unstyled: {
+      element: 'div'
+    }
+  });
 
-      const target = event.currentTarget;
-      if (target) {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, markType.toUpperCase()));
-      }
+  const handlePick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    const files = event.target.files || [];
+    if (!files.length) return;
+    const file = files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setEditorState(editorState => addImage(editorState, result));
     };
+    reader.readAsDataURL(file);
+  };
 
-    return (
-      <StyledButton
-        active={editorState.getCurrentInlineStyle().has(markType.toUpperCase())}
-        onMouseDown={handleMouseDown}>
-        <Icon size={24} type={markType}/>
-      </StyledButton>
-    );
+  const onToggle = (type: string) => () => {
+    const selectionState = editorState.getSelection();
+    setEditorState(EditorState.forceSelection(
+      RichUtils.toggleBlockType(editorState, type),
+      selectionState,
+    ));
+  };
+  const isActive = (editorState: EditorState, type: string) => {
+    const selection = editorState.getSelection();
+    const blockType = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType();
+    return blockType === type;
   };
 
   return (
     <Main className={className}>
+      {/* toolbar */}
       <Toolbar>
-        {renderMarkButton(MARK_TYPES.BOLD)}
-        {renderMarkButton(MARK_TYPES.ITALIC)}
-        {renderMarkButton(MARK_TYPES.UNDERLINE)}
+        {/* h1 button */}
+        <Tile active={isActive(editorState, 'title')} onClick={onToggle('title')}>
+          H1
+        </Tile>
+        {/* h2 button */}
+        <Tile active={isActive(editorState, 'subtitle')} onClick={onToggle('subtitle')}>
+          H2
+        </Tile>
+        {/* image upload button */}
+        <label htmlFor='uploader'>
+          <Input id='uploader' type='file' onChange={handlePick}/>
+          <Tile active={false}>
+            <Icon size={24} type='photo'/>
+          </Tile>
+        </label>
       </Toolbar>
-      <EditorWrapper>
-        {mounted &&
-        <Editor
+      {/* editor */}
+      <Wrapper >
+        {mount && <PluginEditor
           ref={editor}
-          plugins={[]}
           editorState={editorState}
-          handleKeyCommand={handleKeyCommand}
-          keyBindingFn={keyBindingFn}
+          plugins={[
+            storagePlugin,
+            focusPlugin,
+            blockDndPlugin,
+            imagePlugin,
+            ...plugins,
+          ]}
+          blockRenderMap={blockRenderMap}
           onChange={handleChange}/>}
-      </EditorWrapper>
+        {typeof children === 'function'
+          ? children({ useEditorState: [editorState, setEditorState] })
+          : children}
+      </Wrapper>
     </Main>
   );
 };
 
-export default CustomEditor;
+export default Editor;
