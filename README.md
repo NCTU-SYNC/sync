@@ -24,6 +24,7 @@
 
 * [About the Project](#about-the-project)
 * [Architecture](#architecture)
+* [Data Flow](#data-flow)
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -35,6 +36,11 @@ We want to build a man-machine cooperation and collaborative news platform. In r
 ## Architecture
 <p align="center">
   <img src=".images/architecture.png" alt="Architecture" width="50%">
+</p>
+
+## Data Flow
+<p align="center">
+  <img src=".images/data flow.png" alt="Data flow" width="90%">
 </p>
 
 ## Built With
