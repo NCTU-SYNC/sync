@@ -7,9 +7,10 @@
     "dev": "next -p 8080",
     "build": "next build",
     "start": "next start",
-    "lint:ts": "eslint . --ext .js,.ts,.tsx --fix",
-    "lint:css": "stylelint *.{ts,tsx} --fix",
-    "lint": "yarn lint:ts && yarn lint:css"
+    "lint:ts": "eslint . --ext .js,.ts,.tsx",
+    "lint:css": "stylelint *.{ts,tsx}",
+    "lint": "yarn lint:ts && yarn lint:css",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.9",
     "@types/draft-js": "^0.10.37",
+    "@types/jest": "^24.0.24",
     "@types/lodash": "^4.14.139",
     "@types/node": "^12.7.7",
     "@types/qs": "^6.5.3",
@@ -63,6 +65,7 @@
     "eslint": "^6.4.0",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.5",
+    "jest": "^24.9.0",
     "lint-staged": "^9.4.0",
     "redux-devtools-extension": "^2.13.8",
     "style-loader": "^1.0.1",
@@ -73,6 +76,7 @@
     "stylelint-processor-styled-components": "^1.8.0",
     "stylelint-scss": "^3.11.1",
     "svg-inline-loader": "^0.8.0",
+    "ts-jest": "^24.2.0",
     "ts-optchain": "^0.1.8",
     "typescript": "^3.6.3",
     "typescript-eslint": "^0.0.1-alpha.0"

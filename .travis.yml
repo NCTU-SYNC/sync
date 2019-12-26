@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 12
+install:
+  - yarn install --frozen-lockfile --ignore-engines
+script:
+  - yarn run lint
+  - yarn run build
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - .next/cache
