@@ -3,22 +3,9 @@ node_js:
   - 12
 install:
   - yarn install --frozen-lockfile --ignore-engines
-jobs:
-  include:
-    - stage: test
-      name: Test @ 10
-      script: yarn run test
-      node_js: '10'
-    - name: Test @ 12
-      script: yarn run test
-      node_js: '12'
-    - stage: lint
-      name: eslint
-    - script: yarn run lint:ts
-      name: stylelint
-      script: yarn run lint:css
-    - stage: build
-      script: yarn run build
+script:
+  - yarn run lint
+  - yarn run build
 cache:
   yarn: true
   directories:

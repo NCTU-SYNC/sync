@@ -1,6 +1,7 @@
-![](https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat-square)
+![](https://img.shields.io/travis/maxam2017/sync/master?style=flat-square)
 ![](https://img.shields.io/badge/language-typescript-blue?style=flat-square)
 ![](https://img.shields.io/badge/next.js-v9.0.6-blueviolet?style=flat-square)
+![](https://img.shields.io/github/license/maxam2017/sync?style=flat-square)
 
 <br />
 <p align="center">
