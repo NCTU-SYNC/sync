@@ -7,8 +7,8 @@
     "dev": "next -p 8080",
     "build": "next build",
     "start": "next start",
-    "lint:ts": "eslint . --ext .js,.ts,.tsx --fix",
-    "lint:css": "stylelint *.{ts,tsx} --fix",
+    "lint:ts": "eslint . --ext .js,.ts,.tsx",
+    "lint:css": "stylelint *.{ts,tsx}",
     "lint": "yarn lint:ts && yarn lint:css"
   },
   "husky": {
