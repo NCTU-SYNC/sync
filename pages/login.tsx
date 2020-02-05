@@ -1,11 +1,11 @@
 import React from 'react';
 
-import LoginPage from '~/modules/login/login';
+import LoginPage from '~/modules/login/LoginWithGoogle';
+
 
 const Login = () => {
   return (
     <>
-      123
       <LoginPage />
     </>
   );

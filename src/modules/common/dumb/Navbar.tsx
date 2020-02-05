@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from '../component/Link';
 import Icon from '../component/Icon';
+
+import LogoutButton from '~/modules/logout/logout';
+import { withFirebase } from '~/modules/firebase/context';
 
 const Main = styled.div`
   position: sticky;
@@ -44,19 +47,45 @@ const StyledLink = styled(Link)`
   color: ${props => props.theme.textLightMedium};
 `;
 
-const Navbar = () => {
+const Navbar = (props:any|null) => {
+  const [authUser, setAuthUser] = useState();
+  let listener:any|null = null;
+
+  useEffect(() => {
+    listener = props.firebase.auth.onAuthStateChanged(
+      (authUser:any|null) => {
+        authUser
+          ? setAuthUser(authUser)
+          : setAuthUser(null);
+      },
+    );
+
+    return listener();
+  });
+  
   return (
     <Main>
       <Link>
         <Logo>SYNC</Logo>
       </Link>
-      <LinksWrapper>
-        <StyledLink to='/notification'><Icon size={18} type='bell'/></StyledLink>
-        <StyledLink to='/user'>個人帳戶</StyledLink>
-        <StyledLink to='/login'>登入</StyledLink>
-      </LinksWrapper>
+      
+      {
+        authUser ?
+          <LinksWrapper>
+            <StyledLink to='/notification'><Icon size={18} type='bell'/></StyledLink>
+            <StyledLink to='/user'>個人帳戶</StyledLink>
+            <StyledLink to='/logout'>登出</StyledLink>
+            <LogoutButton />
+          </LinksWrapper>
+          : 
+          <LinksWrapper>
+            <StyledLink to='/notification'><Icon size={18} type='bell'/></StyledLink>
+            <StyledLink to='/sign_up'>註冊</StyledLink>
+            <StyledLink to='/login'>登入</StyledLink>
+          </LinksWrapper>
+      }
     </Main>
   );
 };
 
-export default Navbar;
+export default withFirebase(Navbar);

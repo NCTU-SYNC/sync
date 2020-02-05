@@ -4,25 +4,30 @@ import 'firebase/auth';
 import firebaseConfig from '../../../constant/constant';
 
 class Firebase {
-  public auth: any|null = null;
-  public constructor() {
+  auth: any|null = null;
+  googleProvider: any|null = null;
+
+  constructor() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     this.auth = firebase.auth();
+    this.googleProvider = new firebase.auth.GoogleAuthProvider();
   }
 
-  public doCreateUserWithEmailAndPassword = (email: string, password: string) => {
+  doCreateUserWithEmailAndPassword = (email: string, password: string) => {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
-
-  public doSignInWithEmailAndPassword = (email: string, password: string) => {
+  doSignInWithEmailAndPassword = (email: string, password: string) => {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
-
-  public doSignOut = () => {
+  doSignOut = () => {
     return this.auth.signOut();
   }
+  doSignInWithGoogle = () => {
+    return this.auth.signInWithPopup(this.googleProvider);
+  }
+
 }
 
 export default Firebase;

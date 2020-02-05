@@ -157,7 +157,7 @@ class PostCarousel extends React.Component<IProps, IState> {
   }
 }
 
-class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState>  {
+class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState> {
   public constructor(props: ISlideGroupProps) {
     super(props);
     this.state = {
