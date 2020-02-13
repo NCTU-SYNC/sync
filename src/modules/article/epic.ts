@@ -14,7 +14,7 @@ const listAritcle$: Epic<IAction, IAction, IState> = action$ => action$.pipe(
   ofType(ASYNC_TYPES.LIST_ARTICLE.REQUEST),
   mergeMap(action => {
     const key = stringify(action.payload);
-    return ajax.getJSON<IResponse<IAritcle>>(`${process.env.API_URL}article?${key}`)
+    return ajax.getJSON<IResponse<IAritcle>>(`${process.env.API_URL}/article?${key}`)
       .pipe(
         map(res => ({
           type: ASYNC_TYPES.LIST_ARTICLE.SUCCESS,
@@ -25,6 +25,34 @@ const listAritcle$: Epic<IAction, IAction, IState> = action$ => action$.pipe(
   }),
 );
 
+const createArticle$: Epic<IAction, IAction, IState> = action$ => action$.pipe(
+  ofType(ASYNC_TYPES.CREATE_ARTICLE.REQUEST),
+  mergeMap(action => {
+    return ajax.post(`${process.env.API_URL}/article`, action.payload)
+      .pipe(
+        map(res => ({
+          type: ASYNC_TYPES.CREATE_ARTICLE.SUCCESS,
+          payload: (res as any).data,
+        })),
+      );
+  }),
+);
+
+const updateArticle$: Epic<IAction, IAction, IState> = action$ => action$.pipe(
+  ofType(ASYNC_TYPES.UPDATE_ARTICLE.REQUEST),
+  mergeMap(action => {
+    return ajax.put(`${process.env.API_URL}/article`, action.payload)
+      .pipe(
+        map(res => ({
+          type: ASYNC_TYPES.UPDATE_ARTICLE.SUCCESS,
+          payload: (res as any).data,
+        })),
+      );
+  }),
+);
+
 export default [
-  listAritcle$
+  listAritcle$,
+  createArticle$,
+  updateArticle$,
 ];
