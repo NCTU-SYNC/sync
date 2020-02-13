@@ -3,7 +3,7 @@ import { noop } from 'lodash';
 import styled from 'styled-components';
 
 import Variant from '~/constants/variant';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 interface IProps {
   className?: string;
@@ -18,7 +18,9 @@ interface IProps {
   onMouseDown?: (event: any) => void;
 }
 
-const Main = styled.button<IProps>`
+const Main = styled.button.attrs(props => ({
+  diabled: props.disabled,
+}))<IProps>`
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -42,17 +44,17 @@ const Main = styled.button<IProps>`
     border-radius: ${props.size ? props.size * 0.618 : 25}px;
   `}
 
-  &:hover {
-    background: ${props => darken(.05, props.theme[props.variant || Variant.PRIMARY])};
-  }
-
-  &:active {
-    background: ${props => darken(.08, props.theme[props.variant || Variant.PRIMARY])};
-  }
-
-  ${props => props.disabled && `
-    pointer-events: none;
+  ${props => props.disabled ? `
     cursor: not-allowed;
+    background: ${lighten(.05, props.theme[props.variant || Variant.PRIMARY])};
+  ` : `
+    &:hover {
+      background: ${darken(.05, props.theme[props.variant || Variant.PRIMARY])};
+    }
+
+    &:active {
+      background: ${darken(.08, props.theme[props.variant || Variant.PRIMARY])};
+    }
   `}
 `;
 

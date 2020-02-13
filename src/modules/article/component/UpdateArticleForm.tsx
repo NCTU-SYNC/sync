@@ -34,17 +34,19 @@ const Action = styled.div`
 `;
 
 const Footer = () => {
-  const { submitting } = useFormState();
+  const { submitting, invalid } = useFormState();
 
   return (
     <Action>
-      <Submit disabled={submitting}>發布</Submit>
+      <Submit disabled={submitting || invalid}>發布</Submit>
     </Action>
   );
 };
 
 const UpdateArticleForm = ({ onSubmit }: IProps) => (
-  <Form<IForm> onSubmit={onSubmit}>
+  <Form<IForm>
+    onSubmit={onSubmit}
+    validate={values => ({ ...!values.title && { title: 'required' } })}>
     {({ handleSubmit }) => (
       <StyledForm onSubmit={handleSubmit}>
         <Content/>
