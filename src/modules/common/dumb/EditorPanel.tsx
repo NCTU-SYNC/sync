@@ -13,6 +13,7 @@ interface IProps {
 const Main = styled.div`
   flex: 1;
   height: 100%;
+  min-width: 350px;
   background-color: ${props => props.theme.justWhite};
   padding: 10px;
 `;

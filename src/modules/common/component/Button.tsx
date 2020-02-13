@@ -32,6 +32,10 @@ const Main = styled.button<IProps>`
     border: 1px solid ${props.theme[props.variant || Variant.PRIMARY]};
     color: ${props.theme[props.variant || Variant.PRIMARY]};
     background-color: ${props.theme.justWhite};
+
+    &:hover {
+      color: ${props.theme.justWhite};
+    }
   `}
   ${props => props.oval && `
     border-radius: ${props.size ? props.size * 0.618 : 25}px;

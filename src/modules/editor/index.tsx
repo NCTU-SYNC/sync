@@ -68,8 +68,12 @@ const Wrapper = styled.div`
   font-size: 18px;
   color: ${props => props.theme.textDark};
 
-  img {
-    max-width: 80%;
+  figure {
+    margin: 0;
+
+    > img {
+      max-width: 80%;
+    }
   }
 
   h1 {
