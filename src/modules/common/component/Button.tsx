@@ -8,6 +8,7 @@ import { darken } from 'polished';
 interface IProps {
   className?: string;
   size?: number;
+  disabled?: boolean;
   outline?: boolean;
   rounded?: boolean;
   variant?: Variant;
@@ -48,6 +49,11 @@ const Main = styled.button<IProps>`
   &:active {
     background: ${props => darken(.08, props.theme[props.variant || Variant.PRIMARY])};
   }
+
+  ${props => props.disabled && `
+    pointer-events: none;
+    cursor: not-allowed;
+  `}
 `;
 
 const Button = ({ children, onClick = noop, ...props }: IProps) => (

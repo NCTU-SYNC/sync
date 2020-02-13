@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import UpdateArticleForm, { IForm } from '~/modules/article/component/UpdateArticleForm';
 import { convertToRaw } from 'draft-js';
+import { useDispatch } from 'react-redux';
+import { createArticle } from '~/modules/article/action';
+import { useRouter } from 'next/router';
+import { IAritcle } from '~/modules/article/reducer';
 
 interface IProps {
   className?: string;
@@ -17,12 +21,24 @@ const Main = styled.div`
 `;
 
 const EditorPanel = ({ className }: IProps) => {
-  const handleSubmit = (values: IForm) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleSubmit = async (values: IForm) => {
     const { title } = values;
     const contentState = values.content.getCurrentContent();
     const rawContent = convertToRaw(contentState);
-    title;
-    rawContent;
+
+    const res: any = await dispatch(createArticle({
+      title,
+      blocks: JSON.stringify(rawContent.blocks),
+      entityMap: JSON.stringify(rawContent.entityMap),
+    }));
+
+    if (res.ok) {
+      const { _id } = res.payload as IAritcle;
+      router.push(`/post/${_id}`);
+      return;
+    }
   };
 
   return (

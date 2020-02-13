@@ -1,11 +1,11 @@
 import React from 'react';
-import { Form } from 'react-final-form';
+import { Form, useFormState } from 'react-final-form';
 import styled from 'styled-components';
 import { EditorState } from 'draft-js';
 
 import Variant from '~/constants/variant';
 import Button from '~/modules/common/component/Button';
-import UpdateArticleFormContent from './UpdateArticleFormContent';
+import Content from './UpdateArticleFormContent';
 
 export interface IForm {
   title: string;
@@ -33,14 +33,22 @@ const Action = styled.div`
   width: 100%;
 `;
 
+const Footer = () => {
+  const { submitting } = useFormState();
+
+  return (
+    <Action>
+      <Submit disabled={submitting}>發布</Submit>
+    </Action>
+  );
+};
+
 const UpdateArticleForm = ({ onSubmit }: IProps) => (
   <Form<IForm> onSubmit={onSubmit}>
     {({ handleSubmit }) => (
       <StyledForm onSubmit={handleSubmit}>
-        <UpdateArticleFormContent/>
-        <Action>
-          <Submit>發布</Submit>
-        </Action>
+        <Content/>
+        <Footer/>
       </StyledForm>
     )}
   </Form>
