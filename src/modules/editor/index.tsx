@@ -23,9 +23,11 @@ interface IChildrenProps {
   useEditorState: [EditorState, Dispatch<SetStateAction<EditorState>>];
 }
 interface IProps {
+  name: string;
   className?: string;
   children?: React.ReactNode | ((props: IChildrenProps) => React.ReactNode);
   plugins?: Array<EditorPlugin>;
+  onChange?: (form: Record<string, any>) => void;
 }
 
 const Main = styled.div`
@@ -36,9 +38,7 @@ const Main = styled.div`
 `;
 const Toolbar = styled.div`
   display: flex;
-  padding: 0 10px;
   margin-bottom: 5px;
-  border-bottom: 1px solid ${props => props.theme.textLight};
 `;
 const Tile = styled.div<{ active: boolean }>`
   cursor: pointer;
@@ -64,8 +64,8 @@ const Wrapper = styled.div`
   overflow-y: auto;
   height: 100%;
   padding: 0 5px;
-  line-height: 1.5em;
-  font-size: 18px;
+  line-height: 1.4em;
+  font-size: 16px;
   color: ${props => props.theme.textDark};
 
   figure {
@@ -77,14 +77,14 @@ const Wrapper = styled.div`
   }
 
   h1 {
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 500;
     line-height: 1.3;
     color: ${props => props.theme.textDark};
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 500;
     color: ${props => props.theme.primary};
   }
@@ -101,14 +101,17 @@ const decorator = composeDecorators(
 const {addImage, ...imagePlugin} = createImagePlugin({ decorator });
 
 
-const Editor = ({ className, children, plugins = [] }: IProps) => {
+const Editor = ({ name, className, children, plugins = [], onChange = () => {} }: IProps) => {
   const editor = React.useRef<PluginEditor>(null);
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const handleChange = (editorState: EditorState) => {
     setEditorState(editorState);
-    // onChange(editorState);
+    onChange({
+      name,
+      value: editorState,
+    });
   };
 
   const focus = useCallback(() => {
