@@ -10,10 +10,10 @@ export const listArticle = createAction(
 
 export const createArticle = createAction(
   ASYNC_TYPES.CREATE_ARTICLE.REQUEST,
-  (payload: { title: string; blocks: string; entityMap: string }) => payload,
+  (payload: { title: string; tags: string[]; blocks: string; entityMap: string }) => payload,
 );
 
 export const updateArticle = createAction(
   ASYNC_TYPES.UPDATE_ARTICLE.REQUEST,
-  (payload: { _id: string, title: string; blocks: string; entityMap: string }) => payload,
+  (payload: { _id: string, title: string; tags: string[]; blocks: string; entityMap: string }) => payload,
 );
