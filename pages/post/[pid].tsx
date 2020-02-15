@@ -50,6 +50,10 @@ const Post = () => {
   const { pid } = router.query;
   const post = fake[parseInt(pid as string)];
 
+  const handleEdit = () => {
+    router.push(`/post/${pid}/edit`);
+  };
+
   return (
     <>
       <Navbar/>
@@ -62,7 +66,7 @@ const Post = () => {
             </ButtonGroup>
             <ButtonGroup>
               <StyledButton size={35} oval outline>歷史紀錄</StyledButton>
-              <StyledButton size={35} oval outline>編輯新聞</StyledButton>
+              <StyledButton size={35} oval outline onClick={handleEdit}>編輯新聞</StyledButton>
             </ButtonGroup>
           </ToolBar>
           <PostContent post={post}/>

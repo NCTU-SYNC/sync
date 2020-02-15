@@ -24,6 +24,7 @@ interface IChildrenProps {
 }
 interface IProps {
   name: string;
+  initialValue?: EditorState;
   className?: string;
   children?: React.ReactNode | ((props: IChildrenProps) => React.ReactNode);
   plugins?: Array<EditorPlugin>;
@@ -101,10 +102,9 @@ const decorator = composeDecorators(
 const {addImage, ...imagePlugin} = createImagePlugin({ decorator });
 
 
-const Editor = ({ name, className, children, plugins = [], onChange = () => {} }: IProps) => {
+const Editor = ({ name, className, children, initialValue, plugins = [], onChange = () => {} }: IProps) => {
   const editor = React.useRef<PluginEditor>(null);
-
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(initialValue || EditorState.createEmpty());
 
   const handleChange = (editorState: EditorState) => {
     setEditorState(editorState);

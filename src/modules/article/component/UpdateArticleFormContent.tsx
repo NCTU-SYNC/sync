@@ -44,7 +44,7 @@ const UpdateArticleFormContent = () => (
   <Wrapper>
     <Field
       name='title'
-      render={({ input }) => <StyledInput name={input.name} placeholder='標題...' onChange={input.onChange}/>}/>
+      render={({ input }) => <StyledInput name={input.name} value={input.value} placeholder='標題...' onChange={input.onChange}/>}/>
     <Field
       name='tags'
       render={({ input }) => <StyledTagInput name={input.name} placeholder='關鍵字...' onChange={input.onChange}/>}/>
@@ -52,6 +52,7 @@ const UpdateArticleFormContent = () => (
       name='content'
       render={({ input }) => (
         <Editor
+          initialValue={input.value}
           name={input.name}
           onChange={(content: any) => input.onChange(content.value) as any}/>
       )}/>

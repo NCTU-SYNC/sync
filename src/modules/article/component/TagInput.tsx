@@ -12,6 +12,7 @@ interface IProps {
 
 const Wrapper = styled.div`
   display: inline-flex;
+  padding: 4px 5px;
 `;
 const Input = styled.input`
   width: 100%;
@@ -28,7 +29,6 @@ const Input = styled.input`
 const ChipWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 6px 0;
   border-radius: 4px;
 `;
 const focusedChipMixin = css<{ focused: boolean }>`
