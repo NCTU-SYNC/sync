@@ -9,11 +9,12 @@ import Content from './UpdateArticleFormContent';
 
 export interface IForm {
   title: string;
-  // tags: Array<string>;
+  tags: string[];
   content: EditorState;
 }
 
 interface IProps {
+  initialValues?: IForm;
   onSubmit: (values: IForm) => void;
 }
 
@@ -43,8 +44,9 @@ const Footer = () => {
   );
 };
 
-const UpdateArticleForm = ({ onSubmit }: IProps) => (
+const UpdateArticleForm = ({ initialValues, onSubmit }: IProps) => (
   <Form<IForm>
+    initialValues={initialValues}
     onSubmit={onSubmit}
     validate={values => ({ ...!values.title && { title: 'required' } })}>
     {({ handleSubmit }) => (

@@ -24,12 +24,13 @@ const EditorPanel = ({ className }: IProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleSubmit = async (values: IForm) => {
-    const { title } = values;
+    const { title, tags } = values;
     const contentState = values.content.getCurrentContent();
     const rawContent = convertToRaw(contentState);
 
     const res: any = await dispatch(createArticle({
       title,
+      tags,
       blocks: JSON.stringify(rawContent.blocks),
       entityMap: JSON.stringify(rawContent.entityMap),
     }));
