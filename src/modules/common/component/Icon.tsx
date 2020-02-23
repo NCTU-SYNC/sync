@@ -6,6 +6,7 @@ import bell from '~/constants/svgs/bell.svg';
 import fb from '~/constants/svgs/fb.svg';
 import ig from '~/constants/svgs/ig.svg';
 import twitter from '~/constants/svgs/twitter.svg';
+import google from '~/constants/svgs/google.svg';
 
 import photo from '~/constants/svgs/photo.svg';
 
@@ -15,6 +16,7 @@ export const IconTypes = {
   fb,
   ig,
   twitter,
+  google,
 
   // editor
   photo,

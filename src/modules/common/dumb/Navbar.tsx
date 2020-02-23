@@ -49,17 +49,15 @@ const StyledLink = styled(Link)`
 
 const Navbar = (props:any|null) => {
   const [authUser, setAuthUser] = useState();
-  let listener:any|null = null;
 
   useEffect(() => {
-    listener = props.firebase.auth.onAuthStateChanged(
+    let listener = props.firebase.auth.onAuthStateChanged(
       (authUser:any|null) => {
         authUser
           ? setAuthUser(authUser)
           : setAuthUser(null);
       },
     );
-
     return listener();
   });
   
@@ -74,7 +72,6 @@ const Navbar = (props:any|null) => {
           <LinksWrapper>
             <StyledLink to='/notification'><Icon size={18} type='bell'/></StyledLink>
             <StyledLink to='/user'>個人帳戶</StyledLink>
-            <StyledLink to='/logout'>登出</StyledLink>
             <LogoutButton />
           </LinksWrapper>
           : 

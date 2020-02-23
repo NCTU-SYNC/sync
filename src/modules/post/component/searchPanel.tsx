@@ -28,9 +28,9 @@ const SearchField = styled(InputGroup)`
 const StyledIcon = styled(Icon)`
   cursor: pointer;
   padding: 5px;
-  background-color: ${props => props.theme.textLightMore};
+  background-color: ${props => props.theme.justWhite};
   color: white;
-  fill: ${props => props.theme.textLightMedium};
+  fill: blue;
   transition: 0.3s;
 
   &:hover {
