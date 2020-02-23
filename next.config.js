@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   webpack: config => {
     config.module.rules.push({
@@ -8,6 +7,6 @@ module.exports = {
     return config;
   },
   env: {
-    API_URL: 'http://140.113.214.141/api/v1/'
+    API_URL: 'http://140.113.214.141/api/v1'
   }
 };

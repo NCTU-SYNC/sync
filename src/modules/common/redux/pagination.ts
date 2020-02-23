@@ -92,6 +92,43 @@ const listActionHandlers = <S>(options: Required<ICreateReducerOptions<S>>) => (
   }),
 });
 
+const updateActionHandlers = <S>(options: Required<ICreateReducerOptions<S>>) => ({
+  [AsyncActionStatus.REQUEST]: (state: IPaginatableState<S>, {
+    meta: { key = DEFAULT_PAGINATION_KEY } = {},
+  }) => produce(state, draft => {
+    const pagination = draft.paginations[key] || getDefaultPagination();
+    pagination.loading = true;
+
+    draft.paginations[key] = pagination;
+  }),
+
+  [AsyncActionStatus.SUCCESS]: (state: IPaginatableState<S>, {
+    payload,
+    meta: { key = DEFAULT_PAGINATION_KEY } = {},
+  }: IAction<any>) => produce(state, draft => {
+    const pagination = draft.paginations[key] || getDefaultPagination();
+
+    pagination.loading = false;
+
+    if (!payload) return;
+
+    const pkKey = options.getPkKey(payload);
+    draft.data[pkKey] = payload;
+
+    draft.paginations[key] = pagination;
+  }),
+
+  [AsyncActionStatus.FAILURE]: (state: IPaginatableState<S>, {
+    payload, // eslint-disable-line no-unused-vars
+    meta: { key = DEFAULT_PAGINATION_KEY } = { key: DEFAULT_PAGINATION_KEY },
+  }: IAction<any>) => produce(state, draft => {
+    const pagination = draft.paginations[key] || getDefaultPagination();
+    pagination.loading = false;
+
+    draft.paginations[key] = pagination;
+  }),
+});
+
 export const createPaginationReducers = <S>(
   types: ICreateReducerTypes,
   options: ICreateReducerOptions<S> = {}
@@ -104,5 +141,6 @@ export const createPaginationReducers = <S>(
 
   return {
     ...createAsyncActionHandlers(types.list, listActionHandlers<S>(opts)),
+    ...createAsyncActionHandlers(types.update, updateActionHandlers<S>(opts)),
   };
 };
