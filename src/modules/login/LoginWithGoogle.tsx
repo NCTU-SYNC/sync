@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { withFirebase } from '~/modules/firebase/context';
 import styled from 'styled-components';
 
+import Button from '~/modules/common/component/Button';
 import Icon from '~/modules/common/component/Icon';
 
 const Logo = styled.h1`
