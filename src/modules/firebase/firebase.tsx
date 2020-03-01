@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-import firebaseConfig from '../../../constant/constant';
+import firebaseConfig from '~/constants/firebaseConfig';
 
 class Firebase {
   auth: any|null = null;

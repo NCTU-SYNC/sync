@@ -76,13 +76,12 @@ const OfferMain = styled.main`
 `;
 
 
-const PostContent = ({ post, postContent, className }: IProps) => (
+const PostContent = ({ post, className }: IProps) => (
   <>
     <Main className={className}>
-      {console.log(postContent)}
       <Body>
         {
-          post && 
+          post &&
           <>
             <Title>{post.title}</Title>
             <TagMain>
@@ -96,7 +95,7 @@ const PostContent = ({ post, postContent, className }: IProps) => (
               <Blank/>
               <QuoteMain>
                 {
-                  post.quotes && post.quotes.map((quote, index) => 
+                  post.quotes && post.quotes.map((quote, index) =>
                     <Quote key={quote}>{`[注${index+1}]: ${quote}`}</Quote>
                   )
                 }

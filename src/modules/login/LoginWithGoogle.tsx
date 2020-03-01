@@ -91,7 +91,7 @@ const LoginFormBase = (props:any|null) => {
     d.setTime(d.getTime() + (exseconds*1000));
     const expires = 'expires=' + d.toUTCString();
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  };  
+  };
 
   const onLoginWithGoogle = () => {
     props.firebase
@@ -153,7 +153,7 @@ const LoginFormBase = (props:any|null) => {
             <StyledIcon size={40} type='fb'/>以 Facebook 帳號登入
           </StyledButton>
         </ButtonGroup>
-        { error }
+        {error.message}
       </CenterGroup>
     </>
   );
