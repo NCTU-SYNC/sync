@@ -6,10 +6,12 @@ import PostCarousel from './PostCarousel';
 import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
 import { INewPost } from '../interface/IPost';
+import { IPostContent } from '../interface/IPost';
 
 interface IProps {
   className?: string;
   post: INewPost;
+  postContent: IPostContent;
 }
 
 const Main = styled.div`
@@ -79,7 +81,7 @@ const PostContent = ({ post, className }: IProps) => (
     <Main className={className}>
       <Body>
         {
-          post && 
+          post &&
           <>
             <Title>{post.title}</Title>
             <TagMain>
@@ -93,7 +95,7 @@ const PostContent = ({ post, className }: IProps) => (
               <Blank/>
               <QuoteMain>
                 {
-                  post.quotes && post.quotes.map((quote, index) => 
+                  post.quotes && post.quotes.map((quote, index) =>
                     <Quote key={quote}>{`[注${index+1}]: ${quote}`}</Quote>
                   )
                 }

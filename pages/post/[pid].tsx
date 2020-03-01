@@ -8,6 +8,7 @@ import Button from '~/modules/common/component/Button';
 import PostContent from '~/modules/post/component/PostContent';
 
 import fake from '~/fake/new_posts';
+import fakeContent from '~/fake/post_contents';
 
 const Main = styled.main`
   display: flex;
@@ -69,7 +70,7 @@ const Post = () => {
               <StyledButton size={35} oval outline onClick={handleEdit}>編輯新聞</StyledButton>
             </ButtonGroup>
           </ToolBar>
-          <PostContent post={post}/>
+          <PostContent post={post} postContent={fakeContent}/>
         </Content>
       </Main>
       <Footer/>
