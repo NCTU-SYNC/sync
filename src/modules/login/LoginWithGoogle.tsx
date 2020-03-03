@@ -97,36 +97,43 @@ const LoginFormBase = (props:any|null) => {
     props.firebase
       .doSignInWithGoogle()
       .then((socialAuthUser:any|null) => {
-        const loginData = {
-          'displayName': socialAuthUser.user.displayName,
-          'email': socialAuthUser.user.email,
-          'emailVerified': socialAuthUser.user.emailVerified,
-          'isAnonymous': socialAuthUser.user.isAnonymous,
-          'metadata': socialAuthUser.user.metadata,
-          'phoneNumber': socialAuthUser.user.phoneNumber,
-          'photoURL': socialAuthUser.user.photoURL,
-          'providerData': socialAuthUser.user.providerData,
-          'providerId': socialAuthUser.user.providerId,
-          'refreshToken': socialAuthUser.user.refreshToken,
-          'uid': socialAuthUser.user.uid,
-        };
-        fetch(`${process.env.API_URL}login`, {
-          body: JSON.stringify(loginData),
-          headers: {
-            'content-type': 'application/json'
-          },
-          method: 'POST',
-        })
-        // .then((response:any) => response.json()) // 輸出成 json
-          .then((response:any|null) => {
-            if (response.status === 200) {
-              setCookie('uid', socialAuthUser.user.uid, TEN_MINUTES);
-              router.push('/');
-            } else {
-              console.error('Error:');
-            }
+        props.firebase.getIdToken()
+          .then((idToken:any) => {
+            const loginData = {
+              'displayName': socialAuthUser.user.displayName,
+              'email': socialAuthUser.user.email,
+              'emailVerified': socialAuthUser.user.emailVerified,
+              'isAnonymous': socialAuthUser.user.isAnonymous,
+              'metadata': socialAuthUser.user.metadata,
+              'phoneNumber': socialAuthUser.user.phoneNumber,
+              'photoURL': socialAuthUser.user.photoURL,
+              'providerData': socialAuthUser.user.providerData,
+              'providerId': socialAuthUser.user.providerId,
+              'refreshToken': socialAuthUser.user.refreshToken,
+              'uid': socialAuthUser.user.uid,
+              'idToken': idToken,
+            };
+            fetch(`${process.env.API_URL}/login`, {
+              body: JSON.stringify(loginData),
+              headers: {
+                'content-type': 'application/json'
+              },
+              method: 'POST',
+              mode: 'cors',
+            })
+              .then((response:any|null) => {
+                if (response.status === 200) {
+                  setCookie('uid', socialAuthUser.user.uid, TEN_MINUTES);
+                  router.push('/');
+                } else {
+                  console.error('Error:');
+                }
+              })
+              .catch((error:any) => console.error('Error:', error));
           })
-          .catch((error:any) => console.error('Error:', error));
+          .catch((error:any) => {
+            console.log(error);
+          });
       })
       .then(() => {
         setError({ message: '' });

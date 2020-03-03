@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-import firebaseConfig from '~/constants/firebaseConfig';
+import firebaseConfig from '../../../constant/constant';
 
 class Firebase {
   auth: any|null = null;
@@ -26,6 +26,9 @@ class Firebase {
   }
   doSignInWithGoogle = () => {
     return this.auth.signInWithPopup(this.googleProvider);
+  }
+  getIdToken = () => {
+    return this.auth.currentUser.getIdToken(true);
   }
 
 }
