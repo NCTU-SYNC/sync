@@ -1,4 +1,4 @@
-firebaseConfig.ts
+constant/constant.tsx
 
 .vscode
 node_modules
