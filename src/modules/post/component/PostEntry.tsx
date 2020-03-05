@@ -96,7 +96,7 @@ const PostEntry = ({ post }: IProps) => {
   ), [ post ]);
 
   return (
-    <Main to={`/post/${post.id}`}>
+    <Main to='/post/[pid]' mask={`/post/${post.id}`}>
       <Body>
         <Title>{post.title}</Title>
         <Excerpt>{post.excerpt}</Excerpt>
