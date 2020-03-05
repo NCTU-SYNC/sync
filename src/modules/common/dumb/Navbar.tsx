@@ -60,13 +60,13 @@ const Navbar = (props:any|null) => {
     );
     return listener();
   });
-  
+
   return (
     <Main>
       <Link>
         <Logo>SYNC</Logo>
       </Link>
-      
+
       {
         authUser ?
           <LinksWrapper>
@@ -74,10 +74,9 @@ const Navbar = (props:any|null) => {
             <StyledLink to='/user'>個人帳戶</StyledLink>
             <LogoutButton />
           </LinksWrapper>
-          : 
+          :
           <LinksWrapper>
             <StyledLink to='/notification'><Icon size={18} type='bell'/></StyledLink>
-            <StyledLink to='/sign_up'>註冊</StyledLink>
             <StyledLink to='/login'>登入</StyledLink>
           </LinksWrapper>
       }

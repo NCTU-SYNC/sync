@@ -163,10 +163,10 @@ class SlideGroup extends React.Component<ISlideGroupProps, ISlideGroupState> {
     this.state = {
       currentImageIndex: 2,
       images: [
-        '/public/avatar2.jpg',
-        '/public/123.jpg',
-        '/public/456.jpg',
-        '/public/avatar2.jpg',
+        '/static/avatar2.jpg',
+        '/static/123.jpg',
+        '/static/456.jpg',
+        '/static/avatar2.jpg',
         'https://picsum.photos/500/400?random=5',
         'https://picsum.photos/500/400?random=6',
       ],
