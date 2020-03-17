@@ -48,7 +48,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Navbar = (props:any|null) => {
-  const [authUser, setAuthUser] = useState();
+  const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
     let listener = props.firebase.auth.onAuthStateChanged(
