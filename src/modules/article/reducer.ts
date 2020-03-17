@@ -12,7 +12,7 @@ export interface IAritcle {
 
 export interface IArticleState extends IPaginatableState<IAritcle> {}
 
-const ArticleRducer = handleActions({
+const ArticleReducer = handleActions({
   ...createPaginationReducers<IAritcle>({
     list: [ ASYNC_TYPES.LIST_ARTICLE ],
     update: [ ASYNC_TYPES.CREATE_ARTICLE, ASYNC_TYPES.UPDATE_ARTICLE ],
@@ -21,4 +21,4 @@ const ArticleRducer = handleActions({
   ...createInitialPaginatableState<IAritcle>()
 });
 
-export default ArticleRducer;
+export default ArticleReducer;

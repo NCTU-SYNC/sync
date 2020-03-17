@@ -16,7 +16,7 @@ const Main = styled.div`
 
 const PostList = ({ posts, className }: IProps) => (
   <Main className={className}>
-    {posts.map(post => <PostEntry key={post.id} post={post}/>)}
+    {posts.map(post => <PostEntry key={post._id} post={post}/>)}
   </Main>
 );
 

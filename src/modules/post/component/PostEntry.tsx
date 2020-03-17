@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Link from '~/modules/common/component/Link';
 
-import { IPost } from '../interface/IPost';
+import { IPost, IPostContentObject } from '../interface/IPost';
 
 interface IProps {
   post: IPost;
@@ -78,8 +78,8 @@ const Img = styled.div`
   background-color: ${props => props.theme.imageBg};
 `;
 
-const PostStatus = ({ editing, isPopular }: Partial<IPost>) => {
-  if(editing){
+const PostStatus = ({ editingCount, isPopular }: Partial<IPost>) => {
+  if(editingCount && editingCount > 0){
     return <Status>編輯中</Status>;
   }
 
@@ -90,20 +90,31 @@ const PostStatus = ({ editing, isPopular }: Partial<IPost>) => {
   return null;
 };
 
+
 const PostEntry = ({ post }: IProps) => {
   const toTimeString = useMemo(() => (date: string) => (
     date.split('T')[0]
   ), [ post ]);
 
+  const getExcerpt = (blocks: Array<IPostContentObject>)=>{
+    var excerpt = '';
+    blocks.forEach((block: IPostContentObject)=>{
+      if(block.text !== undefined && block.text !== null)
+        excerpt += block.text;
+    });
+    excerpt = excerpt.substring(0, 40) + '...';
+    return excerpt;
+  };
+
   return (
-    <Main to='/post/[pid]' mask={`/post/${post.id}`}>
+    <Main to='/post/[pid]' mask={`/post/${post._id}`}>
       <Body>
         <Title>{post.title}</Title>
-        <Excerpt>{post.excerpt}</Excerpt>
+        <Excerpt>{getExcerpt(post.content.blocks)}</Excerpt>
         <Foot>
           <Tag>{post.category} {toTimeString(post.createdAt)}</Tag>
-          <PostStatus editing={post.editing} isPopular={post.isPopular}/>
-          <Count>編輯次數：{post.editCount}</Count>
+          <PostStatus editingCount={post.editingCount} isPopular={post.isPopular}/>
+          <Count>編輯次數：{post.editedCount}</Count>
         </Foot>
       </Body>
       <Img/>

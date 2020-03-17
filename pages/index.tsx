@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { listArticle2 } from '~/modules/article/action';
 import styled from 'styled-components';
 
 import { InputGroup } from '~/modules/common/component/Input';
@@ -10,8 +12,6 @@ import PostList from '~/modules/post/component/PostList';
 import Navbar from '~/modules/common/dumb/Navbar';
 import Footer from '~/modules/common/dumb/Footer';
 import OfferBlock from '~/modules/common/dumb/OfferBlock';
-
-import fake from '~/fake/posts';
 
 const Main = styled.main`
   display: flex;
@@ -59,7 +59,20 @@ const StyledIcon = styled(Icon)`
 `;
 
 const Layout = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
+  const [ articles, setArticles ] = useState([]);
+  const getArticles = async ()=>{
+    const res: any = await dispatch(listArticle2(null));
+    if (res.status === 200) {
+      setArticles(res.data.data);
+    }
+  };
+
+  useEffect(() => {
+    getArticles();
+  }, []);
+
   return(
     <>
       <Navbar/>
@@ -70,7 +83,7 @@ const Layout = () => {
               left={<StyledButton size={35}>搜尋</StyledButton>}
               right={<StyledIcon type='search' size={35}/>}/>
           </ToolBar>
-          <StyledPostList posts={fake}/>
+          <StyledPostList posts={articles}/>
         </Content>
         <SideBar>
           <ToolBar>

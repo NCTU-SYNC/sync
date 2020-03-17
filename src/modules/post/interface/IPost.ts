@@ -1,12 +1,12 @@
 export interface IPost {
-  id: number;
+  _id: number;
   title: string;
-  excerpt: string;
   category: string;
   createdAt: string;
   isPopular: boolean;
-  editing: boolean;
-  editCount: number;
+  editingCount: number;
+  editedCount: number;
+  content: any;
 }
 
 export interface INewPost {
@@ -26,7 +26,7 @@ export interface IPostContent {
   blocks: IPostContentObject[];
 }
 
-interface IPostContentObject {
+export interface IPostContentObject {
   data: object,
   depth: number;
   entityRanges: string[],

@@ -10,7 +10,7 @@ import Icon from '~/modules/common/component/Icon';
 
 import { IState } from '~/modules/common/redux/reducers';
 import { IAritcle } from '~/modules/article/reducer';
-import { listArticle } from '~/modules/article/action';
+import { listArticle2 } from '~/modules/article/action';
 import { getPaginationKey } from '~/modules/common/redux/getPaginationKey';
 import { darken } from 'polished';
 import copyToClipboard from '~/modules/common/utils/copyToClipboard';
@@ -147,8 +147,8 @@ const SearchPanel = () => {
   ).map(id => state.article.data[id]));
 
   const handleSearch = (value?: string) => {
-    dispatch(listArticle({
-      query: value || oc(ref.current).value(''),
+    dispatch(listArticle2({
+      q: value || oc(ref.current).value(''),
     }));
   };
 

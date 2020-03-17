@@ -6,7 +6,6 @@ import { convertToRaw } from 'draft-js';
 import { useDispatch } from 'react-redux';
 import { createArticle } from '~/modules/article/action';
 import { useRouter } from 'next/router';
-import { IAritcle } from '~/modules/article/reducer';
 
 interface IProps {
   className?: string;
@@ -27,17 +26,17 @@ const EditorPanel = ({ className }: IProps) => {
     const { title, tags } = values;
     const contentState = values.content.getCurrentContent();
     const rawContent = convertToRaw(contentState);
-
-    const res: any = await dispatch(createArticle({
+    const data = {
       title,
       tags,
       blocks: JSON.stringify(rawContent.blocks),
-      entityMap: JSON.stringify(rawContent.entityMap),
-    }));
+      entityMap: JSON.stringify(rawContent.entityMap)
+    };
 
-    if (res.ok) {
-      const { _id } = res.payload as IAritcle;
-      router.push(`/post/${_id}`);
+    const res: any = await dispatch(createArticle(data));
+    if (res.status === 200) {
+      const id = res.data.id;
+      router.push(`/post/${id}`);
       return;
     }
   };
