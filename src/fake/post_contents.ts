@@ -2,6 +2,9 @@ import { IPostContent } from '~/modules/post/interface/IPost';
 
 export default 
 {
+  tags: [ '武漢肺炎', '陳時中' ],
+  entityMap: [],
+  timeStamp: '2020-03-17T11:22:00.294+00:00',
   blocks: [
     {
       data: {},
