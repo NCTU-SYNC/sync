@@ -5,12 +5,12 @@ import Chip from '~/modules/common/component/Chip';
 import PostCarousel from './PostCarousel';
 import OfferBlock from '~/modules/common/dumb/OfferBlock';
 
-import { INewPost } from '../interface/IPost';
+import { IPost } from '../interface/IPost';
 import { IPostContent } from '../interface/IPost';
 
 interface IProps {
   className?: string;
-  post: INewPost;
+  post: IPost;
   postContent: IPostContent;
 }
 
@@ -76,38 +76,43 @@ const OfferMain = styled.main`
 `;
 
 
-const PostContent = ({ post, className }: IProps) => (
-  <>
-    <Main className={className}>
-      <Body>
-        {
-          post &&
+const PostContent = ({ post, className }: IProps) => {
+  const content = post.content;
+
+  return (
+    <>
+      <Main className={className}>
+        <Body>
+          {
+            post &&
           <>
             <Title>{post.title}</Title>
             <TagMain>
-              {post.tags && post.tags.map(tag => <Chip key={tag} size={25}>#{tag}</Chip>)}
+              {content && content.tags && content.tags.map(tag => <Chip key={tag} size={25}>#{tag}</Chip>)}
             </TagMain>
             <Content>
               <Img/>
-              <Excerpt>{post.excerpt}</Excerpt>
+              <Excerpt>{'post.excerpt'}</Excerpt>
               <Img/>
-              <Excerpt>{post.excerpt}</Excerpt>
+              <Excerpt>{'post.excerpt'}</Excerpt>
               <Blank/>
               <QuoteMain>
                 {
-                  post.quotes && post.quotes.map((quote, index) =>
-                    <Quote key={quote}>{`[注${index+1}]: ${quote}`}</Quote>
-                  )
+                  <Quote key={'1'}>{'[注 1]: https://news.google.com/'}</Quote>
+                  //post.quotes && post.quotes.map((quote, index) =>
+                  //  <Quote key={quote}>{`[注${index+1}]: ${quote}`}</Quote>
+                  //)
                 }
               </QuoteMain>
             </Content>
           </>
-        }
-      </Body>
-    </Main>
-    <PostCarousel/>
-    <OfferMain><OfferBlock/></OfferMain>
-  </>
-);
+          }
+        </Body>
+      </Main>
+      <PostCarousel/>
+      <OfferMain><OfferBlock/></OfferMain>
+    </>
+  );
+};
 
 export default PostContent;

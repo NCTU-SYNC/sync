@@ -1,5 +1,3 @@
-import { INewPost } from '~/modules/post/interface/IPost';
-
 export default [
   {
     'id': 0,
@@ -69,4 +67,4 @@ export default [
     'editing': false,
     'editCount': 89
   },
-] as INewPost[];
+];

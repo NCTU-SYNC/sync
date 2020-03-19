@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { listArticle2 } from '~/modules/article/action';
+import { listArticle } from '~/modules/article/action';
 import styled from 'styled-components';
 
 import { InputGroup } from '~/modules/common/component/Input';
@@ -63,7 +63,7 @@ const Layout = () => {
   const router = useRouter();
   const [ articles, setArticles ] = useState([]);
   const getArticles = async ()=>{
-    const res: any = await dispatch(listArticle2(null));
+    const res: any = await dispatch(listArticle(null));
     if (res.status === 200) {
       setArticles(res.data.data);
     }

@@ -11,7 +11,6 @@ import fake from '~/fake/new_posts';
 import { convertToRaw, EditorState, ContentState } from 'draft-js';
 import { updateArticle } from '~/modules/article/action';
 import { oc } from 'ts-optchain';
-import { IAritcle } from '~/modules/article/reducer';
 
 const Main = styled.div`
   height: 100%;
@@ -44,17 +43,18 @@ const EditPost = () => {
     const contentState = values.content.getCurrentContent();
     const rawContent = convertToRaw(contentState);
 
-    const res: any = await dispatch(updateArticle({
-      _id: pid as string,
+    const data = {
+      id: pid as string,
       title,
       tags,
       blocks: JSON.stringify(rawContent.blocks),
-      entityMap: JSON.stringify(rawContent.entityMap),
-    }));
+      entityMap: JSON.stringify(rawContent.entityMap)
+    };
 
-    if (res.ok) {
-      const { _id } = res.payload as IAritcle;
-      router.push(`/post/${_id}`);
+    const res: any = await dispatch(updateArticle(data));
+    if (res.status === 200) {
+      const id = res.data.id;
+      router.push(`/post/${id}`);
       return;
     }
   };

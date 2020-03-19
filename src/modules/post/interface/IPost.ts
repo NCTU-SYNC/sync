@@ -6,9 +6,10 @@ export interface IPost {
   isPopular: boolean;
   editingCount: number;
   editedCount: number;
-  content: any;
+  content: IPostContent;
 }
 
+/*
 export interface INewPost {
   id: number;
   title: string;
@@ -21,9 +22,12 @@ export interface INewPost {
   editing: boolean;
   editCount: number;
 }
-
+*/
 export interface IPostContent {
+  tags: Array<string>;
   blocks: IPostContentObject[];
+  entityMap: any;
+  timeStamp: string;
 }
 
 export interface IPostContentObject {

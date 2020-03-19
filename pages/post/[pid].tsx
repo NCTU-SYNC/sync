@@ -6,9 +6,10 @@ import Navbar from '~/modules/common/dumb/Navbar';
 import Footer from '~/modules/common/dumb/Footer';
 import Button from '~/modules/common/component/Button';
 import PostContent from '~/modules/post/component/PostContent';
+import { IPost } from '~/modules/post/interface/IPost';
 
-import fake from '~/fake/new_posts';
-import fakeContent from '~/fake/post_contents';
+// import fake from '~/fake/new_posts';
+// import fakeContent from '~/fake/post_contents';
 
 const Main = styled.main`
   display: flex;
@@ -46,10 +47,9 @@ const StyledButton = styled(Button)`
   margin-left: 10px;
 `;
 
-const Post = () => {
+const Post = (post: IPost) => {
   const router = useRouter();
   const { pid } = router.query;
-  const post = fake[parseInt(pid as string)];
 
   const handleEdit = () => {
     router.push(`/post/${pid}/edit`);
@@ -70,7 +70,7 @@ const Post = () => {
               <StyledButton size={35} oval outline onClick={handleEdit}>編輯新聞</StyledButton>
             </ButtonGroup>
           </ToolBar>
-          <PostContent post={post} postContent={fakeContent}/>
+          <PostContent post={post} postContent={post.content}/>
         </Content>
       </Main>
       <Footer/>
