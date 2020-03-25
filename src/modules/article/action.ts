@@ -47,3 +47,18 @@ export const updateArticle = (data: any) => {
     }
   };
 };
+
+export const getArticle = (data: any) => {
+  return async (dispatch: any) => {
+    dispatch({type: ASYNC_TYPES.GET_ARTICLE.REQUEST});
+
+    try {
+      let res: any = await axios.get(`${process.env.API_URL}/article/${data}`, data as any);
+      dispatch({type: ASYNC_TYPES.GET_ARTICLE.SUCCESS, payload :res.data.data});
+      return res;
+    } catch (error) {
+      dispatch({type: ASYNC_TYPES.GET_ARTICLE.FAILURE, error});
+      return error;
+    }
+  };
+};
