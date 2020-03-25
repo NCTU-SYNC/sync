@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import Navbar from '~/modules/common/dumb/Navbar';
@@ -7,6 +8,9 @@ import Footer from '~/modules/common/dumb/Footer';
 import Button from '~/modules/common/component/Button';
 import PostContent from '~/modules/post/component/PostContent';
 import { IPost } from '~/modules/post/interface/IPost';
+
+// import axios from 'axios';
+import { getArticle } from '~/modules/article/action';
 
 // import fake from '~/fake/new_posts';
 // import fakeContent from '~/fake/post_contents';
@@ -55,9 +59,23 @@ const Post = (post: IPost) => {
     router.push(`/post/${pid}/edit`);
   };
 
+  const dispatch = useDispatch();
+  const [ article, setArticle ] = useState({title: '', blocks: [], tags: []});
+
+  const getArticleContent = async ()=>{
+    const res: any = await dispatch(getArticle(pid));
+    if (res.status === 200) {
+      setArticle(res.data.data);
+    }
+  };
+
+  useEffect(() => {
+    getArticleContent();
+  }, []);
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Main>
         <Content>
           <ToolBar>
@@ -70,10 +88,10 @@ const Post = (post: IPost) => {
               <StyledButton size={35} oval outline onClick={handleEdit}>編輯新聞</StyledButton>
             </ButtonGroup>
           </ToolBar>
-          <PostContent post={post} postContent={post.content}/>
+          <PostContent post={post} postContent={post.content} tags={article.tags} title={article.title} blocks={article.blocks}/>
         </Content>
       </Main>
-      <Footer/>
+      <Footer />
     </>
   );
 };

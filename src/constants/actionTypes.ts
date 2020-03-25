@@ -11,7 +11,8 @@ enum ASYNC_ACTION_TYPES {
   LIST_ARTICLE,
   CREATE_ARTICLE,
   UPDATE_ARTICLE,
-  LIST_NEWS
+  LIST_NEWS,
+  GET_ARTICLE
 }
 
 const asyncActionFactory = (types: object): IAsyncActionTypes => (
