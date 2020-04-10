@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { oc } from 'ts-optchain';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -151,6 +151,9 @@ const SearchPanel = () => {
       q: value || oc(ref.current).value(''),
     }));
   };
+
+  // Initialize news list on component mount.
+  useEffect(() => { handleSearch(''); }, []);
 
   return (
     <Panel>
