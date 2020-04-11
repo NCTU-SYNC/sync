@@ -7,7 +7,7 @@ module.exports = {
     return config;
   },
   env: {
-    API_URL: 'http://140.113.214.141/api/v1'
+    API_URL: 'https://sync-test.nctu.me/api/v1'
   }
 };
   
