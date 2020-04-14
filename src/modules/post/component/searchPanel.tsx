@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { oc } from 'ts-optchain';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import Icon from '~/modules/common/component/Icon';
 
 import { IState } from '~/modules/common/redux/reducers';
 import { IAritcle } from '~/modules/article/reducer';
-import { listArticle } from '~/modules/article/action';
+import { listNews } from '~/modules/news/action';
 import { getPaginationKey } from '~/modules/common/redux/getPaginationKey';
 import { darken } from 'polished';
 import copyToClipboard from '~/modules/common/utils/copyToClipboard';
@@ -140,17 +140,20 @@ const SearchPanel = () => {
   });
 
   const loading = useSelector((state:IState) => (
-    oc(state).article.paginations[paginationKey].loading(false)));
+    oc(state).news.paginations[paginationKey].loading(false)));
 
   const articles = useSelector((state:IState) => (
-    oc(state).article.paginations[paginationKey].index([])
-  ).map(id => state.article.data[id]));
+    oc(state).news.paginations[paginationKey].index([])
+  ).map(id => state.news.data[id]));
 
   const handleSearch = (value?: string) => {
-    dispatch(listArticle({
+    dispatch(listNews({
       q: value || oc(ref.current).value(''),
     }));
   };
+
+  // Initialize news list on component mount.
+  useEffect(() => { handleSearch(''); }, []);
 
   return (
     <Panel>
