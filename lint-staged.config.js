@@ -1,5 +1,5 @@
 function glob_escape(str) {
-  return str.replace(/\[\]/, c => `[${c}]`);
+  return str.replace(/(\[|\])/g, c => `[${c}]`);
 }
 
 module.exports = {

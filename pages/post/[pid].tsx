@@ -36,7 +36,7 @@ const ButtonGroup = styled.div``;
 const StyledGreyButton = styled(Button)`
   font-weight: 500;
   font-size: 14px;
-  background-color: ${props => props.theme.justWhite};;
+  background-color: ${props => props.theme.justWhite};
   color: ${props => props.theme.textLight};
   border: 1px solid ${props => props.theme.textLight};
   margin-right: 10px;
@@ -45,25 +45,24 @@ const StyledGreyButton = styled(Button)`
 const StyledButton = styled(Button)`
   font-weight: 500;
   font-size: 14px;
-  background-color: ${props => props.theme.justWhite};;
+  background-color: ${props => props.theme.justWhite};
   color: ${props => props.theme.primary};
   border: 1px solid ${props => props.theme.primary};
   margin-left: 10px;
 `;
 
-const Post = (post: IPost) => {
+const Post = (props: any,post: IPost) => {
   const router = useRouter();
-  const { pid } = router.query;
 
   const handleEdit = () => {
-    router.push(`/post/${pid}/edit`);
+    router.push(`/post/${props.pid}/edit`);
   };
 
   const dispatch = useDispatch();
   const [ article, setArticle ] = useState({title: '', blocks: [], tags: []});
 
   const getArticleContent = async ()=>{
-    const res: any = await dispatch(getArticle(pid));
+    const res: any = await dispatch(getArticle(props.pid));
     if (res.status === 200) {
       setArticle(res.data.data);
     }
@@ -94,6 +93,10 @@ const Post = (post: IPost) => {
       <Footer />
     </>
   );
+};
+
+Post.getInitialProps = async ({ query }: any) => {
+  return query;
 };
 
 export default Post;
