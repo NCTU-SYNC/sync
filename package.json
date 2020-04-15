@@ -17,13 +17,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "stylelint --fix",
-      "git add"
-    ]
-  },
   "dependencies": {
     "@react-firebase/auth": "^0.2.10",
     "axios": "^0.19.2",
